@@ -4,7 +4,7 @@
 
 QuanAra investigates how aviation activity relates to hospitality demand in Abu Dhabi, with an emphasis on observed evidence, temporal validation and reproducible forecasting research.
 
-![Project banner](QUANARA.png)
+![Project banner](QUANARA.jpeg)
 
 [Recovery status](docs/recovery-status.md) · [Methodology](docs/methodology.md) · [Reproducibility](docs/reproducibility.md) · [Future research](docs/roadmap.md)
 
