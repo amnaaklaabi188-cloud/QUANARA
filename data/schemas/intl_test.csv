@@ -1,0 +1,6 @@
+column,dtype_after_cleaning,role,description,empty_cells_pct
+Date,datetime64[us],key,Calendar date to which the guest counts apply (documented as string YYYY/M/D). International: one row per nationality per date. Domestic: exactly one row per date.,0.0
+New Arrivals,float64,predictor (competition mode only),"Guests newly arrived (check-in) on the date, as opposed to continuing stays. Always a subset of Guests.",0.022
+Same-Day Guests,float64,predictor (competition mode only),"Guests who visited and departed on the same day without an overnight stay. International: '*' indicates zero, suppressed, or not applicable. Domestic: documented as always numeric.",47.837
+Nationality,str,key / market identifier,"Passport nationality / country of origin of the guests, upper-case names.",0.0
+Residence (groups),str,constant (excluded),"High-level residence group: 'International' (non-resident visitor) in the international files, 'Domestic' (resident / in-country) in the domestic files.",0.0

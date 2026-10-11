@@ -1,0 +1,50 @@
+MKT-WI-catboost-20261010-123103-7d603b                     MAE=    160.1 WMAPE=0.226 R2=0.879 (26.9s)
+MKT-WI-seasonal_naive-20261010-123104-d90910               MAE=    192.7 WMAPE=0.272 R2=0.820 (0.2s)
+MKT-WI-ridge-20261010-123104-b69aeb                        MAE=    206.8 WMAPE=0.292 R2=0.844 (0.7s)
+MKT-WI-random_forest-20261010-123137-c5fe30                MAE=    193.3 WMAPE=0.273 R2=0.782 (33.1s)
+MKT-WI-xgboost-20261010-123145-4d4b72                      MAE=    177.7 WMAPE=0.251 R2=0.860 (7.1s)
+MKT-WI-svr-20261010-123918-b5964e                          MAE=    183.2 WMAPE=0.259 R2=0.840 (453.8s)
+INTL-WI-seasonal_naive-20261010-123918-4187e6              MAE=   3091.9 WMAPE=0.124 R2=0.004 (0.1s)
+INTL-WI-ridge-20261010-123919-3722ab                       MAE=   2712.7 WMAPE=0.109 R2=0.245 (0.2s)
+INTL-WI-random_forest-20261010-123923-f81968               MAE=   1807.6 WMAPE=0.072 R2=0.657 (4.3s)
+INTL-WI-catboost-20261010-123941-734b77                    MAE=   2109.0 WMAPE=0.085 R2=0.467 (18.5s)
+INTL-WI-xgboost-20261010-123947-af9e7a                     MAE=   2084.7 WMAPE=0.084 R2=0.563 (5.1s)
+INTL-WI-svr-20261010-123947-3d1cd1                         MAE=   2469.0 WMAPE=0.099 R2=0.406 (0.5s)
+ALL-WI-seasonal_naive-20261010-123947-5d88af               MAE=   4329.0 WMAPE=0.106 R2=-0.166 (0.0s)
+ALL-WI-ridge-20261010-123947-282a1a                        MAE=   3451.0 WMAPE=0.084 R2=0.294 (0.2s)
+ALL-WI-random_forest-20261010-123950-84eba1                MAE=   3697.6 WMAPE=0.091 R2=0.197 (3.2s)
+ALL-WI-catboost-20261010-124009-41b203                     MAE=   3789.9 WMAPE=0.093 R2=0.190 (19.0s)
+DOM-WI-seasonal_naive-20261010-124010-554899               MAE=   2629.0 WMAPE=0.165 R2=-0.195 (0.0s)
+DOM-WI-ridge-20261010-124010-fd1946                        MAE=   2143.5 WMAPE=0.135 R2=0.290 (0.2s)
+DOM-WI-catboost-20261010-124029-d248ff                     MAE=   2822.8 WMAPE=0.178 R2=-0.048 (19.5s)
+MKT-COMP-catboost-20261010-124105-534ddb                   MAE=     81.0 WMAPE=0.139 R2=0.952 (36.0s)
+MKT-COMP-xgboost-20261010-124113-edc9dd                    MAE=     76.5 WMAPE=0.131 R2=0.963 (8.3s)
+INTL-COMP-ridge-20261010-124114-3b07cc                     MAE=   1185.8 WMAPE=0.048 R2=0.845 (0.2s)
+INTL-COMP-catboost-20261010-124135-a7f113                  MAE=   1778.6 WMAPE=0.071 R2=0.622 (21.0s)
+DOM-COMP-ridge-20261010-124135-deb259                      MAE=    780.7 WMAPE=0.049 R2=0.912 (0.2s)
+DOM-COMP-catboost-20261010-124156-8da746                   MAE=   1081.9 WMAPE=0.068 R2=0.876 (20.8s)
+ALL-COMP-ridge-20261010-124156-2feca1                      MAE=   1729.1 WMAPE=0.042 R2=0.841 (0.2s)
+ALL-COMP-catboost-20261010-124220-62ae2d                   MAE=   2402.0 WMAPE=0.059 R2=0.663 (24.4s)
+activated demo model: MKT-WI-catboost-20261010-123103-7d603b
+QuanAra — scenario SCN-20261010-124221-c5523a
+Question: what happens to international market hotel guests in Abu Dhabi if seat capacity from United Kingdom changes by +25% (2025-12-01 → 2025-12-31)?
+Model: CatBoost (MKT-WI-catboost-20261010-123103-7d603b); holdout WMAPE 22.6%, R² 0.88.
+Baseline: 3,426 guests/day · Scenario: 3,438 guests/day · Change: +13/day (+0.37%), +394 guest-nights over 31 days.
+Typical daily model error (90% of holdout days within): ±65% of the prediction.
+This is a model-based predictive scenario, not a causal estimate.
+Warnings: 8 model feature(s) leave the training range on some days — predictions there are extrapolations. Tree models predict flat beyond the training range, so they understate responses to large changes.
+REF-ABL-international_market-catboost
+                        feature_set  n_features        MAE       RMSE       R2    WMAPE
+                      Aviation only          10 326.287941 632.638853 0.519081 0.460724
+             Aviation + Seasonality          16 199.019867 395.383924 0.812156 0.281019
+Aviation + Seasonality + Historical          18 160.086126 317.112024 0.879167 0.226044
+REF-ABL-international_total-random_forest
+                        feature_set  n_features         MAE        RMSE       R2    WMAPE
+                      Aviation only          10 2058.231731 2746.330925 0.486494 0.082487
+             Aviation + Seasonality          15 2014.121746 2715.873842 0.497820 0.080719
+Aviation + Seasonality + Historical          17 1807.604111 2244.772138 0.656928 0.072443
+REF-ABL-international_total-ridge
+                        feature_set  n_features         MAE        RMSE       R2    WMAPE
+                      Aviation only          10 1859.360619 2272.189563 0.648497 0.074517
+             Aviation + Seasonality          15 2126.555651 2590.384935 0.543155 0.085225
+Aviation + Seasonality + Historical          17 2712.741739 3329.116999 0.245432 0.108717

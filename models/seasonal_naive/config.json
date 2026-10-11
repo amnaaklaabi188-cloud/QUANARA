@@ -1,0 +1,724 @@
+{
+  "algorithm": "seasonal_naive",
+  "name": "Seasonal naive baseline",
+  "description": "Benchmark: Guests on the same weekday last year. Uses no aviation input, so it cannot respond to a scenario.",
+  "preprocessing": "`SeasonalNaive`: no learned parameters except fallbacks. \u0177(t) = Guests(t \u2212 364 days) \u2014 the same weekday last year \u2014 for the same nationality (market scope) or the same total; missing values fall back to last year's 7-day mean, then the training median of the market (or overall). Uses no aviation input, so it cannot respond to a scenario; it is the benchmark every model must beat.",
+  "supports_monotone_constraint": false,
+  "default_hyperparameters": {},
+  "hyperparameter_space": {},
+  "models": [
+    {
+      "model_id": "INTL-WI-seasonal_naive-20261010-215221-2da9d9",
+      "label": "Seasonal naive baseline \u00b7 Intl guests",
+      "reference_model": false,
+      "target_definition": "International hotel guests \u2014 guests per day (International \u2014 all 45 reported nationalities (daily total))",
+      "scope": "international_total",
+      "grain": "daily",
+      "mode": "whatif",
+      "mode_definition": "What-if Forecasting (scenario-time features only)",
+      "features": [],
+      "hyperparameters": {},
+      "log_target": false,
+      "monotone": false,
+      "monotone_features": [],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='international_total', mode='whatif') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/INTL-WI-seasonal_naive-20261010-215221-2da9d9/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/INTL-WI-seasonal_naive-20261010-215221-2da9d9/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/INTL-WI-seasonal_naive-20261010-215221-2da9d9/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 3091.8784530386743,
+        "RMSE": 3825.2993744107666,
+        "R2": 0.0037437682100474046,
+        "WMAPE": 0.12391195371839928,
+        "Pearson": 0.6867396193747505,
+        "Spearman": 0.7314986225756874,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 5372.601648351648,
+        "RMSE": 5842.963475853828,
+        "R2": -3.109148298486754,
+        "WMAPE": 0.22584000962014628,
+        "Pearson": 0.6028457686379873,
+        "Spearman": 0.5405987196332147,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T21:52:21",
+      "simulator_ready": false,
+      "not_ready_reason": "Seasonal baseline: it uses no aviation input, so it cannot respond to a scenario.",
+      "training_config": {
+        "scope": "international_total",
+        "mode": "whatif",
+        "algorithm": "seasonal_naive",
+        "features": [],
+        "params": {},
+        "log_target": false,
+        "monotone": false,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": false,
+        "seed": 42,
+        "negative_policy": "none"
+      }
+    },
+    {
+      "model_id": "DOM-WI-seasonal_naive-20261010-124010-554899",
+      "label": "Seasonal naive baseline \u00b7 Domestic guests \u00b7 reference",
+      "reference_model": true,
+      "target_definition": "Domestic hotel guests \u2014 guests per day (Domestic (daily total))",
+      "scope": "domestic",
+      "grain": "daily",
+      "mode": "whatif",
+      "mode_definition": "What-if Forecasting (scenario-time features only)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos"
+      ],
+      "hyperparameters": {},
+      "log_target": false,
+      "monotone": false,
+      "monotone_features": [],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='domestic', mode='whatif') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/DOM-WI-seasonal_naive-20261010-124010-554899/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/DOM-WI-seasonal_naive-20261010-124010-554899/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/DOM-WI-seasonal_naive-20261010-124010-554899/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 2628.950276243094,
+        "RMSE": 4295.139255777319,
+        "R2": -0.1949355032307809,
+        "WMAPE": 0.1653718607879213,
+        "Pearson": 0.3287485937663977,
+        "Spearman": 0.5560928076077896,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 2911.010989010989,
+        "RMSE": 3976.0943300757,
+        "R2": -1.0424024371132792,
+        "WMAPE": 0.17930615907553782,
+        "Pearson": 0.47618365966304327,
+        "Spearman": 0.6754068206221905,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T12:40:10",
+      "simulator_ready": false,
+      "not_ready_reason": "Seasonal baseline: it uses no aviation input, so it cannot respond to a scenario.",
+      "training_config": {
+        "scope": "domestic",
+        "mode": "whatif",
+        "algorithm": "seasonal_naive",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos"
+        ],
+        "params": {},
+        "log_target": false,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": true,
+        "seed": 42
+      }
+    },
+    {
+      "model_id": "ALL-WI-seasonal_naive-20261010-123947-5d88af",
+      "label": "Seasonal naive baseline \u00b7 All guests \u00b7 reference",
+      "reference_model": true,
+      "target_definition": "All hotel guests (international + domestic) \u2014 guests per day (Overall \u2014 international + domestic (daily total))",
+      "scope": "overall",
+      "grain": "daily",
+      "mode": "whatif",
+      "mode_definition": "What-if Forecasting (scenario-time features only)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos"
+      ],
+      "hyperparameters": {},
+      "log_target": false,
+      "monotone": false,
+      "monotone_features": [],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='overall', mode='whatif') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/ALL-WI-seasonal_naive-20261010-123947-5d88af/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/ALL-WI-seasonal_naive-20261010-123947-5d88af/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/ALL-WI-seasonal_naive-20261010-123947-5d88af/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 4329.016574585636,
+        "RMSE": 6208.986444097251,
+        "R2": -0.16618303277669066,
+        "WMAPE": 0.1059749685747928,
+        "Pearson": 0.4107711430266689,
+        "Spearman": 0.527306846025833,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 4423.008241758242,
+        "RMSE": 5596.355517694752,
+        "R2": -0.5024871902098059,
+        "WMAPE": 0.10986028961187783,
+        "Pearson": 0.5085911710244411,
+        "Spearman": 0.6081302755215798,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T12:39:47",
+      "simulator_ready": false,
+      "not_ready_reason": "Seasonal baseline: it uses no aviation input, so it cannot respond to a scenario.",
+      "training_config": {
+        "scope": "overall",
+        "mode": "whatif",
+        "algorithm": "seasonal_naive",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos"
+        ],
+        "params": {},
+        "log_target": false,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": true,
+        "seed": 42
+      }
+    },
+    {
+      "model_id": "INTL-WI-seasonal_naive-20261010-123918-4187e6",
+      "label": "Seasonal naive baseline \u00b7 Intl guests \u00b7 reference",
+      "reference_model": true,
+      "target_definition": "International hotel guests \u2014 guests per day (International \u2014 all 45 reported nationalities (daily total))",
+      "scope": "international_total",
+      "grain": "daily",
+      "mode": "whatif",
+      "mode_definition": "What-if Forecasting (scenario-time features only)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos"
+      ],
+      "hyperparameters": {},
+      "log_target": false,
+      "monotone": false,
+      "monotone_features": [],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='international_total', mode='whatif') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/INTL-WI-seasonal_naive-20261010-123918-4187e6/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/INTL-WI-seasonal_naive-20261010-123918-4187e6/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/INTL-WI-seasonal_naive-20261010-123918-4187e6/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 3091.8784530386743,
+        "RMSE": 3825.2993744107666,
+        "R2": 0.0037437682100474046,
+        "WMAPE": 0.12391195371839928,
+        "Pearson": 0.6867396193747505,
+        "Spearman": 0.7314986225756874,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 5372.601648351648,
+        "RMSE": 5842.963475853828,
+        "R2": -3.109148298486754,
+        "WMAPE": 0.22584000962014628,
+        "Pearson": 0.6028457686379873,
+        "Spearman": 0.5405987196332147,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T12:39:18",
+      "simulator_ready": false,
+      "not_ready_reason": "Seasonal baseline: it uses no aviation input, so it cannot respond to a scenario.",
+      "training_config": {
+        "scope": "international_total",
+        "mode": "whatif",
+        "algorithm": "seasonal_naive",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos"
+        ],
+        "params": {},
+        "log_target": false,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": true,
+        "seed": 42
+      }
+    },
+    {
+      "model_id": "MKT-WI-seasonal_naive-20261010-123104-d90910",
+      "label": "Seasonal naive baseline \u00b7 Intl guests by nationality \u00b7 reference",
+      "reference_model": true,
+      "target_definition": "International hotel guests, by nationality \u2014 guests per nationality-day (International \u2014 by source market (daily \u00d7 nationality))",
+      "scope": "international_market",
+      "grain": "daily \u00d7 nationality",
+      "mode": "whatif",
+      "mode_definition": "What-if Forecasting (scenario-time features only)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos",
+        "market"
+      ],
+      "hyperparameters": {},
+      "log_target": false,
+      "monotone": false,
+      "monotone_features": [],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 29172,
+        "eval_fit": 23199,
+        "holdout": 5973,
+        "test": 6940
+      },
+      "cross_validation": {
+        "folds": 3,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='international_market', mode='whatif') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/MKT-WI-seasonal_naive-20261010-123104-d90910/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/MKT-WI-seasonal_naive-20261010-123104-d90910/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/MKT-WI-seasonal_naive-20261010-123104-d90910/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 192.69144483509123,
+        "RMSE": 387.1430024373158,
+        "R2": 0.8199044090714582,
+        "WMAPE": 0.2720833413118247,
+        "Pearson": 0.9109855424808747,
+        "Spearman": 0.8768269858561835,
+        "n": 5973
+      },
+      "cv_mean_metrics": {
+        "MAE": 203.7169497169497,
+        "RMSE": 396.2152138935867,
+        "R2": 0.7768343903007491,
+        "WMAPE": 0.303378146850976,
+        "Pearson": 0.9161796058712744,
+        "Spearman": 0.9011057895274566,
+        "n": 3003.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T12:31:04",
+      "simulator_ready": false,
+      "not_ready_reason": "Seasonal baseline: it uses no aviation input, so it cannot respond to a scenario.",
+      "training_config": {
+        "scope": "international_market",
+        "mode": "whatif",
+        "algorithm": "seasonal_naive",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos",
+          "market"
+        ],
+        "params": {},
+        "log_target": false,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 3,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": true,
+        "seed": 42
+      }
+    }
+  ]
+}

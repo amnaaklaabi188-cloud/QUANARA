@@ -1,0 +1,2 @@
+-r requirements.txt
+playwright==1.63.0    # scripts/verify_pages.py drives a real browser (run `playwright install chromium` or use a local Chrome)

@@ -1,0 +1,135 @@
+{
+  "model_id": "MKT-WI-catboost-20261010-123103-7d603b",
+  "model": "CatBoost \u00b7 Intl guests by nationality \u00b7 reference",
+  "config": {
+    "model_id": "MKT-WI-catboost-20261010-123103-7d603b",
+    "market": "RUSSIAN FEDERATION",
+    "start": "2025-09-01",
+    "end": "2025-09-30",
+    "seats_change_pct": 20.0,
+    "frequency_mode": "follow_seats",
+    "frequency_change_pct": 0.0,
+    "load_factor_mode": "baseline",
+    "load_factor_value": 0.0,
+    "p2p_share_mode": "baseline",
+    "p2p_share_value": 0.0,
+    "sustained": true,
+    "note": ""
+  },
+  "summary": {
+    "days": 30,
+    "baseline_avg_daily_guests": 1732.2157471065627,
+    "scenario_avg_daily_guests": 1806.4510765592345,
+    "baseline_guest_days": 51966.47241319688,
+    "scenario_guest_days": 54193.53229677703,
+    "abs_change_guest_days": 2227.05988358015,
+    "baseline_guest_nights": 51966.47241319688,
+    "scenario_guest_nights": 54193.53229677703,
+    "abs_change_avg_daily": 74.23532945267168,
+    "abs_change_guest_nights": 2227.05988358015,
+    "pct_change": 4.285570638453784,
+    "observed_avg_daily_guests": null,
+    "daily_error_band_rel_q90": 0.6495170067315892,
+    "daily_error_band_basis": "holdout days, Russian Federation (n=181)",
+    "seats_change_pct": 20.0,
+    "frequency_change_pct": 20.0,
+    "seats_per_flight_change_pct": 0.0,
+    "all_markets_baseline_guest_days": 561159.7383561142,
+    "all_markets_baseline_guest_nights": 561159.7383561142,
+    "all_markets_scenario_guest_days": 563386.7982396943,
+    "all_markets_scenario_guest_nights": 563386.7982396943,
+    "all_markets_pct_change": 0.396867367944842
+  },
+  "aviation_changes": [
+    {
+      "quantity": "Seats",
+      "baseline": 28813.0,
+      "scenario": 34575.6,
+      "change": 5762.5999999999985,
+      "change_%": 19.999999999999996
+    },
+    {
+      "quantity": "Flights",
+      "baseline": 129.0,
+      "scenario": 154.79999999999995,
+      "change": 25.799999999999955,
+      "change_%": 19.999999999999964
+    },
+    {
+      "quantity": "Seats per flight",
+      "baseline": 223.35658914728683,
+      "scenario": 223.35658914728688,
+      "change": 5.684341886080802e-14,
+      "change_%": 2.5449627019207418e-14
+    },
+    {
+      "quantity": "PAX",
+      "baseline": 25450.0,
+      "scenario": 30540.0,
+      "change": 5090.0,
+      "change_%": 20.0
+    },
+    {
+      "quantity": "P2P passengers",
+      "baseline": 8909.0,
+      "scenario": 10690.8,
+      "change": 1781.7999999999993,
+      "change_%": 19.999999999999993
+    },
+    {
+      "quantity": "Transfer passengers",
+      "baseline": 16541.0,
+      "scenario": 19849.2,
+      "change": 3308.2000000000007,
+      "change_%": 20.000000000000004
+    },
+    {
+      "quantity": "Load factor",
+      "baseline": 0.8832818519418318,
+      "scenario": 0.8832818519418318,
+      "change": 0.0,
+      "change_%": 0.0
+    },
+    {
+      "quantity": "P2P share",
+      "baseline": 0.3500589390962672,
+      "scenario": 0.3500589390962672,
+      "change": 0.0,
+      "change_%": 0.0
+    }
+  ],
+  "checks": [
+    {
+      "check": "Seats \u2265 0",
+      "passed": true,
+      "detail": "min 168.0"
+    },
+    {
+      "check": "PAX = P2P + Transfer + Transit",
+      "passed": true,
+      "detail": "identity recomputed on every changed route-day"
+    },
+    {
+      "check": "0 \u2264 P2P \u2264 PAX",
+      "passed": true,
+      "detail": "P2P share 37.6%"
+    },
+    {
+      "check": "Transfer \u2265 0",
+      "passed": true,
+      "detail": "min 0.0"
+    },
+    {
+      "check": "Load factor \u2264 150% (hard limit)",
+      "passed": true,
+      "detail": "max 105.2%"
+    },
+    {
+      "check": "Load factor within observed daily maximum (105.2%)",
+      "passed": true,
+      "detail": "max 105.2% (advisory: above it the scenario is outside observed operations)"
+    }
+  ],
+  "warnings": [],
+  "note": "Model-based sensitivity estimate under changed aviation inputs; not a causal effect."
+}

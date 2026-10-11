@@ -1,0 +1,13 @@
+# Scientific limitations
+
+1. **Correlation, not causation.** Flights and hotel demand share drivers — seasons, events, economic growth — and airlines schedule capacity where they expect demand. The models learn associations; a scenario is the model's prediction when aviation inputs change and everything else is held fixed. It is useful for planning and stress-testing, not proof of what a route change would cause.
+2. **Departure country is a proxy for nationality.** 33 of 45 nationalities are linked to flights by an exact name match (92.2% of international guest-days); the other 12 have no direct flight market. Passengers departing a country are not all its nationals, and nationals also arrive through other hubs.
+3. **No observed target in the test files.** Accuracy is measured on held-out training months (2025-02-01 → 2025-07-31) only; the official test period (2025-08-01 → 2026-02-28) has forecasts but no actuals.
+4. **Short daily history.** Daily flights exist only from 2023-01-01, giving 884 modelling days with roughly two seasonal cycles; seasonal effects and growth are hard to separate.
+5. **Autocorrelation.** Consecutive days are strongly dependent, so classical p-values overstate certainty; effective sample sizes are reported.
+6. **Extrapolation.** Tree models (Random Forest, XGBoost, CatBoost) predict flat beyond the training range, so they understate responses to large changes; Ridge and SVR extrapolate smoothly but without guarantees. The Simulator flags features that leave the training range.
+7. **Model disagreement.** Comparable models can disagree on the size of a scenario effect (e.g. +5.1% with SVR and +4.3% with CatBoost for the same Russian Federation scenario); this spread is part of the answer.
+8. **Unobserved stages.** Length of stay, visitor share of P2P passengers and hotel capture rates are not in the files, so guest nights and conversion rates are never estimated; guest-days (Σ daily Guests) are reported instead.
+9. **Domestic guests** are UAE residents; inbound-flight features have no direct mechanism on domestic stays, so domestic scenario responses reflect seasonal co-movement and should be interpreted with great caution.
+10. **Data quality.** Same-Day Guests blanks cannot be uniquely interpreted; 238 nationality-days are unobserved; the flight file's last day (2026-02-28) appears incomplete; load factors above 100% are kept as recorded.
+11. **Realised versus scheduled inputs.** Passenger features are realised on the day. For scenarios this is appropriate (the user sets them); a true advance forecast would need airline schedules and passenger forecasts.

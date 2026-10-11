@@ -1,0 +1,494 @@
+{
+  "generated_at": "2026-10-10T15:43:05",
+  "inventory": [
+    {
+      "dataset": "intl_train",
+      "file": "data international_train.xlsx",
+      "bytes": 1935490,
+      "sha256": "beaa3c39d3f9bf891667fdb50a2584e56a3b02dc3c459b17ea312022415fad44"
+    },
+    {
+      "dataset": "intl_test",
+      "file": "data international_test.xlsx",
+      "bytes": 255860,
+      "sha256": "9e0379f5798c8b861bf11b2694ed911c3f8dd4530713ee94523a4b3f8fbbb931"
+    },
+    {
+      "dataset": "dom_train",
+      "file": "data domestic_train.xlsx",
+      "bytes": 51710,
+      "sha256": "8aade22d507d92ded353de395c6ea413536fb0a0741efc2c4653f6ea804a5208"
+    },
+    {
+      "dataset": "dom_test",
+      "file": "data domestic_test.xlsx",
+      "bytes": 14356,
+      "sha256": "3eb97c30bf25a84cfe7ffb2df76af8fed57785c2bc4c16a229974e7e9b513e37"
+    },
+    {
+      "dataset": "flight",
+      "file": "flight_data.xlsx",
+      "bytes": 15722937,
+      "sha256": "5520c0a95126636ee90084209c8e4110bd0b0b095d64cc9dbac37356ae00a9f8"
+    },
+    {
+      "dataset": "dictionary",
+      "file": "Data_Dictionary.pdf",
+      "bytes": 338446,
+      "sha256": "a059e4fbec0079fe5722ff007883a8a031c1989827e439b732fe64ffcc0c2c67"
+    }
+  ],
+  "hotel": {
+    "intl_train": {
+      "dataset": "intl_train",
+      "rows": 58622,
+      "columns": [
+        "Date",
+        "Guests",
+        "New Arrivals",
+        "Same-Day Guests",
+        "Nationality",
+        "Residence (groups)"
+      ],
+      "dates": {
+        "start": "2022-01-01",
+        "end": "2025-07-31",
+        "distinct_dates": 1308,
+        "calendar_days_in_span": 1308,
+        "missing_calendar_days": 0
+      },
+      "missing": {
+        "Date": 0,
+        "Guests": 0,
+        "New Arrivals": 262,
+        "Same-Day Guests": 35026,
+        "Nationality": 0,
+        "Residence (groups)": 0
+      },
+      "duplicate_keys": 0,
+      "has_target": true,
+      "residence_values": {
+        "International": 58622
+      },
+      "schema_ok": true,
+      "nationalities": 45,
+      "nationalities_per_day": {
+        "min": 40,
+        "median": 45.0,
+        "max": 45
+      },
+      "nationality_days_missing": {
+        "ARMENIA": 24,
+        "AZERBAIJAN": 42,
+        "CZECHIA": 27,
+        "DENMARK": 42,
+        "FINLAND": 54,
+        "ISRAEL": 4,
+        "NORWAY": 44,
+        "QATAR": 1
+      },
+      "guests": {
+        "min": 10.0,
+        "median": 205.0,
+        "max": 6804.0,
+        "sum": 25429132.0
+      },
+      "new_arrivals_gt_guests": 0,
+      "same_day_gt_guests": 0,
+      "implied_avg_length_of_stay": 3.6079342644003773,
+      "new_arrivals_lt10_rows": 5202,
+      "same_day_suppressed_pct": 59.74889973047661
+    },
+    "intl_test": {
+      "dataset": "intl_test",
+      "rows": 9202,
+      "columns": [
+        "Date",
+        "New Arrivals",
+        "Same-Day Guests",
+        "Nationality",
+        "Residence (groups)"
+      ],
+      "dates": {
+        "start": "2025-08-01",
+        "end": "2026-02-28",
+        "distinct_dates": 212,
+        "calendar_days_in_span": 212,
+        "missing_calendar_days": 0
+      },
+      "missing": {
+        "Date": 0,
+        "New Arrivals": 2,
+        "Same-Day Guests": 4402,
+        "Nationality": 0,
+        "Residence (groups)": 0
+      },
+      "duplicate_keys": 0,
+      "has_target": false,
+      "residence_values": {
+        "International": 9202
+      },
+      "schema_ok": true,
+      "nationalities": 45,
+      "nationalities_per_day": {
+        "min": 39,
+        "median": 44.0,
+        "max": 45
+      },
+      "nationality_days_missing": {
+        "ARMENIA": 16,
+        "AUSTRIA": 4,
+        "AZERBAIJAN": 29,
+        "BAHRAIN": 1,
+        "BRAZIL": 2,
+        "CZECHIA": 9,
+        "DENMARK": 56,
+        "FINLAND": 87,
+        "KUWAIT": 1,
+        "LEBANON": 1,
+        "MEXICO": 32,
+        "MOROCCO": 4,
+        "NORWAY": 69,
+        "ROMANIA": 3,
+        "SOUTH AFRICA": 2,
+        "SWEDEN": 18,
+        "UZBEKISTAN": 4
+      },
+      "new_arrivals_lt10_rows": 0,
+      "same_day_suppressed_pct": 47.83742664638122
+    },
+    "dom_train": {
+      "dataset": "dom_train",
+      "rows": 1308,
+      "columns": [
+        "Date",
+        "Guests",
+        "New Arrivals",
+        "Same-Day Guests",
+        "Residence (groups)"
+      ],
+      "dates": {
+        "start": "2022-01-01",
+        "end": "2025-07-31",
+        "distinct_dates": 1308,
+        "calendar_days_in_span": 1308,
+        "missing_calendar_days": 0
+      },
+      "missing": {
+        "Date": 0,
+        "Guests": 0,
+        "New Arrivals": 0,
+        "Same-Day Guests": 0,
+        "Residence (groups)": 0
+      },
+      "duplicate_keys": 0,
+      "has_target": true,
+      "residence_values": {
+        "Domestic": 1308
+      },
+      "schema_ok": true,
+      "guests": {
+        "min": 8827.0,
+        "median": 17448.5,
+        "max": 36385.0,
+        "sum": 23199581.0
+      },
+      "new_arrivals_gt_guests": 0,
+      "same_day_gt_guests": 0,
+      "implied_avg_length_of_stay": 2.455711813626737,
+      "new_arrivals_lt10_rows": 0,
+      "same_day_suppressed_pct": 0.0
+    },
+    "dom_test": {
+      "dataset": "dom_test",
+      "rows": 212,
+      "columns": [
+        "Date",
+        "New Arrivals",
+        "Same-Day Guests",
+        "Residence (groups)"
+      ],
+      "dates": {
+        "start": "2025-08-01",
+        "end": "2026-02-28",
+        "distinct_dates": 212,
+        "calendar_days_in_span": 212,
+        "missing_calendar_days": 0
+      },
+      "missing": {
+        "Date": 0,
+        "New Arrivals": 0,
+        "Same-Day Guests": 0,
+        "Residence (groups)": 0
+      },
+      "duplicate_keys": 0,
+      "has_target": false,
+      "residence_values": {
+        "Domestic": 212
+      },
+      "schema_ok": true,
+      "new_arrivals_lt10_rows": 0,
+      "same_day_suppressed_pct": 0.0
+    }
+  },
+  "flight": {
+    "dataset": "flight",
+    "rows": 117608,
+    "columns": [
+      "Date",
+      "Departure Country Name",
+      "Departure City",
+      "Arrival City",
+      "Airline Name",
+      "Average Weekly Frequency",
+      "Business Class P2P Count",
+      "Business Class Seat Capacity",
+      "Economy Class P2P Count",
+      "Economy Class Seat Capacity",
+      "First Class P2P Count",
+      "First Class Seat Capacity",
+      "Load Factor",
+      "Total P2P",
+      "Total PAX",
+      "Total PAX Excluding Infant",
+      "Total Seats",
+      "Total Transfer",
+      "Total Transit",
+      "Transfer Business Class Count",
+      "Transfer Economy Class Count",
+      "Transfer First Class Count",
+      "Transit Business Class Count",
+      "Transit Economy Class Count",
+      "Transit First Count",
+      "Destination"
+    ],
+    "dates": {
+      "start": "2022-01-01",
+      "end": "2026-02-28",
+      "distinct_dates": 1167,
+      "calendar_days_in_span": 1520,
+      "missing_calendar_days": 353
+    },
+    "grain": {
+      "daily": {
+        "rows": 116395,
+        "start": "2023-01-01",
+        "end": "2026-02-28",
+        "distinct_dates": 1155
+      },
+      "monthly": {
+        "rows": 1213,
+        "start": "2022-01-01",
+        "end": "2022-12-01",
+        "distinct_dates": 12
+      }
+    },
+    "missing_daily": {
+      "Total PAX Excluding Infant": 1,
+      "Transfer Business Class Count": 1,
+      "Transfer Economy Class Count": 1,
+      "Transfer First Class Count": 1
+    },
+    "missing_monthly": {
+      "Average Weekly Frequency": 1213,
+      "Business Class P2P Count": 1213,
+      "Business Class Seat Capacity": 1213,
+      "Economy Class P2P Count": 1213,
+      "Economy Class Seat Capacity": 1213,
+      "First Class P2P Count": 1213,
+      "First Class Seat Capacity": 1213,
+      "Transfer Business Class Count": 1213,
+      "Transfer Economy Class Count": 1213,
+      "Transfer First Class Count": 1213,
+      "Transit Business Class Count": 1213,
+      "Transit Economy Class Count": 1213,
+      "Transit First Count": 1213,
+      "flights": 1213,
+      "flights_decode_error": 1213
+    },
+    "duplicate_keys": 0,
+    "literal_asterisks": 0,
+    "departure_countries": 33,
+    "departure_cities": 124,
+    "airlines": 51,
+    "routes": 250,
+    "arrival_city_values": [
+      "Abu Dhabi"
+    ],
+    "destination_values": [
+      "AUH"
+    ],
+    "unknown_airline_rows": 4,
+    "frequency_decode_max_error": 8.881784197001252e-16,
+    "daily_flights_distribution": {
+      "1": 74315,
+      "2": 25245,
+      "3": 8190,
+      "4": 7544,
+      "5": 790,
+      "6": 309,
+      "8": 2
+    },
+    "identity_pax_eq_p2p_transfer_transit_pct": 100.0,
+    "identity_seats_eq_cabin_sum_pct_daily": 100.0,
+    "identity_p2p_eq_cabin_sum_pct_daily": 28.368916190558014,
+    "identity_transfer_eq_cabin_sum_pct_daily": 58.59272305511405,
+    "load_factor_max_abs_diff_vs_pax_over_seats": 1.1102230246251565e-16,
+    "load_factor_gt_100_daily_pct": 8.490914558185489,
+    "load_factor_max_daily": 1.0759493670886076,
+    "load_factor_gt_100_monthly_pct": 1.0717230008244023,
+    "load_factor_max_monthly": 1.8571428571428572,
+    "transit_nonzero_daily_rows": 3,
+    "transit_nonzero_monthly_rows": 4,
+    "p2p_share_of_pax_daily_pct": 50.632284721129054,
+    "transfer_share_of_pax_daily_pct": 49.367240973867325,
+    "negative_values": 0
+  },
+  "market_matching": {
+    "nationalities": 45,
+    "departure_countries": 33,
+    "matched": [
+      "ARMENIA",
+      "AUSTRIA",
+      "AZERBAIJAN",
+      "BAHRAIN",
+      "BELGIUM",
+      "CANADA",
+      "CHINA",
+      "EGYPT",
+      "FRANCE",
+      "GERMANY",
+      "INDIA",
+      "IRELAND",
+      "ISRAEL",
+      "ITALY",
+      "JAPAN",
+      "JORDAN",
+      "KAZAKHSTAN",
+      "KUWAIT",
+      "LEBANON",
+      "NETHERLANDS",
+      "OMAN",
+      "PHILIPPINES",
+      "POLAND",
+      "QATAR",
+      "RUSSIAN FEDERATION",
+      "SAUDI ARABIA",
+      "SOUTH KOREA",
+      "SPAIN",
+      "SWITZERLAND",
+      "TURKEY",
+      "UNITED KINGDOM",
+      "UNITED STATES OF AMERICA",
+      "UZBEKISTAN"
+    ],
+    "nationalities_without_departure_country": [
+      "AUSTRALIA",
+      "BRAZIL",
+      "CZECHIA",
+      "DENMARK",
+      "FINLAND",
+      "MEXICO",
+      "MOROCCO",
+      "NORWAY",
+      "PAKISTAN",
+      "ROMANIA",
+      "SOUTH AFRICA",
+      "SWEDEN"
+    ],
+    "departure_countries_without_nationality": [],
+    "guest_share_in_matched_nationalities_pct": 92.17924544180273
+  },
+  "dictionary_discrepancies": [
+    "Flight data is documented as monthly; it is monthly only for 2022 and DAILY from 2023-01-01.",
+    "Average Weekly Frequency is documented as mostly '*'; it is populated on 100% of daily rows and decodes exactly to daily flight counts.",
+    "Cabin-class P2P/seat/transfer columns are documented as predominantly '*'; they are empty only on 2022 monthly rows.",
+    "Suppression is documented as '*'; the .xlsx files contain empty cells instead (zero literal '*' cells).",
+    "Load Factor is documented as a percentage string; it is stored as a numeric fraction.",
+    "Dates are documented as strings; they are stored as Excel datetimes.",
+    "International test coverage is documented as 'Aug 2025 \u2013 Aug 2025'; the file covers 2025-08-01 \u2192 2026-02-28 (212 days).",
+    "Guests is documented as the target in the test files; both test files do not contain a Guests column.",
+    "The dictionary states 32 unique columns; the five files contain 31 distinct column names (Date is shared)."
+  ],
+  "leakage": [
+    {
+      "feature": "Guests (same day / recent lags)",
+      "risk": "target leakage",
+      "decision": "Never a feature. Short lags (t-1, t-7) are unavailable for the test period and for any What-if date after 2025-07-31, so they are not offered. Only the 364-day seasonal lag is used."
+    },
+    {
+      "feature": "New Arrivals",
+      "risk": "accounting component of Guests (subset, same day)",
+      "decision": "Competition mode only (the official test files provide it). Never used in What-if mode."
+    },
+    {
+      "feature": "Same-Day Guests",
+      "risk": "same-day hotel observation",
+      "decision": "Competition mode only."
+    },
+    {
+      "feature": "Total PAX / Load Factor / P2P share",
+      "risk": "deterministic identities (PAX = P2P + Transfer + Transit; LF = PAX / Seats)",
+      "decision": "Allowed, but the simulator recomputes all of them jointly so they never contradict each other."
+    },
+    {
+      "feature": "Rolling / lagged aviation features",
+      "risk": "look-ahead if windows were centred",
+      "decision": "All windows are trailing (end at day t). The scaler/encoder is fitted on training folds only (inside the sklearn Pipeline)."
+    },
+    {
+      "feature": "Holdout period",
+      "risk": "temporal leakage via random K-fold",
+      "decision": "Only chronological holdout and expanding-window CV are used."
+    }
+  ],
+  "warnings": [
+    {
+      "level": "critical",
+      "title": "Official test files contain no observed Guests",
+      "detail": "Out-of-sample metrics can only be computed on held-out TRAIN dates (chronological holdout). Test-period outputs are forecasts that cannot be scored here."
+    },
+    {
+      "level": "critical",
+      "title": "Flight data changes grain in 2023",
+      "detail": "2022 is monthly (1213 rows); daily data starts 2023-01-01. Daily models therefore use 2023-03-01 \u2192 2025-07-31 (after a 56-day feature warm-up)."
+    },
+    {
+      "level": "warning",
+      "title": "Test extract filtered differently from train",
+      "detail": "5,202 intl-train rows have New Arrivals < 10; the intl-test file has 0. Competition-mode market models are trained on rows with New Arrivals \u2265 10 to match the test population."
+    },
+    {
+      "level": "warning",
+      "title": "Some nationality-day combinations are missing",
+      "detail": "8 nationalities have days without a row (international Guests minimum is 10); suppression of small counts is possible but not confirmed. Missing rows are not imputed."
+    },
+    {
+      "level": "warning",
+      "title": "Departure country \u2260 nationality",
+      "detail": "33 of 45 nationalities share a name with a departure country (92.2% of international guest-days). The name match is a modelling assumption, not an identity."
+    },
+    {
+      "level": "info",
+      "title": "Load factor above 100%",
+      "detail": "8.5% of daily route rows exceed 100% (max 107.6%); kept as documented (overbooking / infant counting)."
+    },
+    {
+      "level": "info",
+      "title": "Total Transit is effectively zero in daily data",
+      "detail": "Non-zero on only 3 of 116,395 daily rows (<0.001% of PAX); transit features carry no usable information and transit controls are disabled."
+    },
+    {
+      "level": "info",
+      "title": "Same-Day Guests suppression is ambiguous",
+      "detail": "59.7% of intl-train rows are '*' (zero, suppressed or n/a \u2014 indistinguishable)."
+    }
+  ],
+  "literal_asterisks_by_file": {
+    "intl_train": 0,
+    "intl_test": 0,
+    "dom_train": 0,
+    "dom_test": 0,
+    "flight": 0
+  }
+}

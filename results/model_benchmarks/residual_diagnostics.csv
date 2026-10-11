@@ -1,0 +1,20 @@
+model_id,model,active,mean_residual,median_residual,median_abs_error,p90_abs_error,max_abs_error,under_share,over_share,n,negative_predictions,MAE,WMAPE,R2
+DOM-WI-catboost-20261010-124029-d248ff,CatBoost · Domestic guests · reference,False,-638.626,-342.77,1778.8,7624.27,19142.7,0.436464,0.563536,181,0,2822.77,0.177564,-0.0481237
+DOM-WI-ridge-20261010-124010-fd1946,Ridge Regression · Domestic guests · reference,False,812.801,791.472,1646.17,3599.31,19493.7,0.640884,0.359116,181,0,2143.48,0.134834,0.289743
+DOM-WI-seasonal_naive-20261010-124010-554899,Seasonal naive baseline · Domestic guests · reference,False,-920.044,-878,1419,6132,19725,0.331492,0.668508,181,0,2628.95,0.165372,-0.194936
+ALL-WI-catboost-20261010-124009-41b203,CatBoost · All guests · reference,False,1461.06,1256.5,3033.68,7234.92,24342.9,0.60221,0.39779,181,0,3789.9,0.0927774,0.190381
+ALL-WI-random_forest-20261010-123950-84eba1,Random Forest · All guests · reference,False,-197.553,-397.037,2527.76,8468.46,22802.4,0.464088,0.535912,181,0,3697.58,0.0905174,0.197179
+ALL-WI-ridge-20261010-123947-282a1a,Ridge Regression · All guests · reference,False,-102.044,-206.619,2646.15,7403.51,23181.6,0.491713,0.508287,181,0,3450.99,0.0844808,0.293833
+ALL-WI-seasonal_naive-20261010-123947-5d88af,Seasonal naive baseline · All guests · reference,False,1612.08,1688,3033,9297,26164,0.679558,0.320442,181,0,4329.02,0.105975,-0.166183
+INTL-WI-svr-20261010-123947-3d1cd1,Support Vector Regression · Intl guests · reference,False,1344.18,1590.56,2185.13,4806.53,7614.87,0.729282,0.270718,181,0,2469.01,0.0989494,0.405694
+INTL-WI-xgboost-20261010-123947-af9e7a,XGBoost · Intl guests · reference,False,-308.371,-515.852,1939.13,3959.5,6392.6,0.41989,0.58011,181,0,2084.74,0.0835494,0.562515
+INTL-WI-catboost-20261010-123941-734b77,CatBoost · Intl guests · reference,False,1178.57,731.717,1538.16,4776.6,8560.6,0.618785,0.381215,181,0,2109.02,0.0845223,0.46749
+INTL-WI-random_forest-20261010-123923-f81968,Random Forest · Intl guests · reference,False,-638.476,-788.022,1550.31,3876.42,5689.6,0.353591,0.646409,181,0,1807.6,0.0724426,0.656928
+INTL-WI-ridge-20261010-123919-3722ab,Ridge Regression · Intl guests · reference,False,-2303.55,-2112.27,2274.57,6063.44,7675.79,0.149171,0.850829,181,0,2712.74,0.108717,0.245432
+INTL-WI-seasonal_naive-20261010-123918-4187e6,Seasonal naive baseline · Intl guests · reference,False,2532.12,2397,2559,6324,11129,0.834254,0.165746,181,0,3091.88,0.123912,0.00374377
+MKT-WI-svr-20261010-123918-b5964e,Support Vector Regression · Intl guests by nationality · reference,True,33.1216,3.42138,72.2599,463.894,3125.27,0.519672,0.480328,5973,0,183.215,0.258702,0.839832
+MKT-WI-xgboost-20261010-123145-4d4b72,XGBoost · Intl guests by nationality · reference,False,-53.0619,-25.068,79.0516,410.556,2792.49,0.381048,0.618952,5973,0,177.681,0.250888,0.860246
+MKT-WI-random_forest-20261010-123137-c5fe30,Random Forest · Intl guests by nationality · reference,False,50.7138,-16.6073,78.6444,444.099,4649.02,0.430772,0.569228,5973,0,193.302,0.272945,0.782082
+MKT-WI-ridge-20261010-123104-b69aeb,Ridge Regression · Intl guests by nationality · reference,False,-57.3004,-34.3931,106.883,499.833,2893.18,0.396953,0.603047,5973,220,206.831,0.292048,0.844401
+MKT-WI-seasonal_naive-20261010-123104-d90910,Seasonal naive baseline · Intl guests by nationality · reference,False,77.7438,28,79,481,3889,0.624979,0.371338,5973,0,192.691,0.272083,0.819904
+MKT-WI-catboost-20261010-123103-7d603b,CatBoost · Intl guests by nationality · reference,False,63.7458,15.6417,70.8058,390.247,3197.51,0.57626,0.42374,5973,0,160.086,0.226044,0.879167

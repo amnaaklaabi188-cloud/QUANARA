@@ -1,0 +1,9 @@
+scope,mode,frame_rows,train_rows,train_period,test_rows,n_features,max_feature_missing_%_train,target_mean
+international_total,whatif,1155,884,2023-03-01 → 2025-07-31,212,35,0.0,22192.6
+international_total,competition,1155,884,2023-03-01 → 2025-07-31,212,38,0.0,22192.6
+international_market,whatif,38059,29172,2023-03-01 → 2025-07-31,6940,36,3.18,623.6
+international_market,competition,48813,37103,2023-03-01 → 2025-07-31,9202,39,24.91,525.8
+domestic,whatif,1155,884,2023-03-01 → 2025-07-31,212,35,0.0,17092.2
+domestic,competition,1155,884,2023-03-01 → 2025-07-31,212,38,0.0,17092.2
+overall,whatif,1155,884,2023-03-01 → 2025-07-31,212,35,0.0,39284.8
+overall,competition,1155,884,2023-03-01 → 2025-07-31,212,38,0.0,39284.8

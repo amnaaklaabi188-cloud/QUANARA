@@ -1,0 +1,1402 @@
+{
+  "algorithm": "random_forest",
+  "name": "Random Forest",
+  "description": "Averaged decision trees on bootstrap samples. Robust; cannot extrapolate beyond the training range.",
+  "preprocessing": "`PrepModel`: ColumnTransformer (numeric features \u2192 median imputation fitted on the training rows, with a binary missing-indicator column per feature, no scaling; categorical features (the market identifier) \u2192 one-hot encoding, unknown categories ignored) \u2192 `RandomForestRegressor` (seed 42, all cores). When the shape constraint is on, `monotonic_cst` is aligned to the transformed columns: +1 on volume features, 0 on indicators and one-hot columns. Trees predict flat beyond the training range. With `log_target`, the estimator is wrapped in `TransformedTargetRegressor(log1p, expm1)`; every metric is reported in guests. With the `floor_zero` policy the pipeline is wrapped in `NonNegative`, which floors predictions at 0 (raw negatives are still counted in the metadata).",
+  "supports_monotone_constraint": true,
+  "default_hyperparameters": {
+    "n_estimators": 400,
+    "max_depth": 12,
+    "min_samples_leaf": 3,
+    "max_features": 0.5
+  },
+  "hyperparameter_space": {
+    "n_estimators": {
+      "label": "Trees",
+      "type": "int",
+      "default": 400,
+      "range_or_choices": [
+        50,
+        1000
+      ],
+      "help": "Number of trees."
+    },
+    "max_depth": {
+      "label": "Max depth (0 = unlimited)",
+      "type": "int",
+      "default": 12,
+      "range_or_choices": [
+        0,
+        40
+      ],
+      "help": "Maximum tree depth."
+    },
+    "min_samples_leaf": {
+      "label": "Min samples per leaf",
+      "type": "int",
+      "default": 3,
+      "range_or_choices": [
+        1,
+        50
+      ],
+      "help": "Larger values smooth predictions."
+    },
+    "max_features": {
+      "label": "Feature fraction per split",
+      "type": "float",
+      "default": 0.5,
+      "range_or_choices": [
+        0.1,
+        1.0
+      ],
+      "help": "Share of features considered at each split."
+    }
+  },
+  "models": [
+    {
+      "model_id": "INTL-WI-random_forest-20261010-190246-8c6b93",
+      "label": "Random Forest \u00b7 Intl guests",
+      "reference_model": false,
+      "target_definition": "International hotel guests \u2014 guests per day (International \u2014 all 45 reported nationalities (daily total))",
+      "scope": "international_total",
+      "grain": "daily",
+      "mode": "whatif",
+      "mode_definition": "What-if Forecasting (scenario-time features only)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos"
+      ],
+      "hyperparameters": {
+        "n_estimators": 550,
+        "max_depth": 15,
+        "min_samples_leaf": 8,
+        "max_features": 0.35
+      },
+      "log_target": true,
+      "monotone": true,
+      "monotone_features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "p2p_28d"
+      ],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='international_total', mode='whatif') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/INTL-WI-random_forest-20261010-190246-8c6b93/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/INTL-WI-random_forest-20261010-190246-8c6b93/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/INTL-WI-random_forest-20261010-190246-8c6b93/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 1662.3363199464327,
+        "RMSE": 2077.2854348533897,
+        "R2": 0.7062130205052299,
+        "WMAPE": 0.06662077577440915,
+        "Pearson": 0.8486648761906459,
+        "Spearman": 0.8441107037734309,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 2233.531310613983,
+        "RMSE": 2841.0383167348323,
+        "R2": 0.040108910534743886,
+        "WMAPE": 0.0928477272482956,
+        "Pearson": 0.6392416228203341,
+        "Spearman": 0.6563136317837666,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T19:02:46",
+      "simulator_ready": true,
+      "not_ready_reason": null,
+      "training_config": {
+        "scope": "international_total",
+        "mode": "whatif",
+        "algorithm": "random_forest",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos"
+        ],
+        "params": {
+          "n_estimators": 550,
+          "max_depth": 15,
+          "min_samples_leaf": 8,
+          "max_features": 0.35
+        },
+        "log_target": true,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": false,
+        "seed": 42,
+        "negative_policy": "none"
+      }
+    },
+    {
+      "model_id": "INTL-COMP-random_forest-20261010-182951-c5bdb5",
+      "label": "Random Forest \u00b7 Intl guests \u00b7 competition \u00b7 trained 10 Oct 18:29:51",
+      "reference_model": false,
+      "target_definition": "International hotel guests \u2014 guests per day (International \u2014 all 45 reported nationalities (daily total))",
+      "scope": "international_total",
+      "grain": "daily",
+      "mode": "competition",
+      "mode_definition": "Competition Test Prediction (may use observed test-time hotel fields)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos",
+        "new_arrivals",
+        "new_arrivals_7d"
+      ],
+      "hyperparameters": {
+        "n_estimators": 300,
+        "max_depth": 16,
+        "min_samples_leaf": 18,
+        "max_features": 0.3
+      },
+      "log_target": true,
+      "monotone": true,
+      "monotone_features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "p2p_28d"
+      ],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='international_total', mode='competition') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/INTL-COMP-random_forest-20261010-182951-c5bdb5/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/INTL-COMP-random_forest-20261010-182951-c5bdb5/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/INTL-COMP-random_forest-20261010-182951-c5bdb5/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 1300.144268252537,
+        "RMSE": 1692.8798845653096,
+        "R2": 0.8048841809738237,
+        "WMAPE": 0.05210535240692249,
+        "Pearson": 0.902730872890512,
+        "Spearman": 0.9103407661053409,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 1761.462647714227,
+        "RMSE": 2385.591715167783,
+        "R2": 0.38789885165231663,
+        "WMAPE": 0.07212828534989982,
+        "Pearson": 0.7493654374194283,
+        "Spearman": 0.7656692174206001,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T18:29:51",
+      "simulator_ready": false,
+      "not_ready_reason": "Competition model: it needs same-day hotel arrivals that do not exist on scenario dates.",
+      "training_config": {
+        "scope": "international_total",
+        "mode": "competition",
+        "algorithm": "random_forest",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos",
+          "new_arrivals",
+          "new_arrivals_7d"
+        ],
+        "params": {
+          "n_estimators": 300,
+          "max_depth": 16,
+          "min_samples_leaf": 18,
+          "max_features": 0.3
+        },
+        "log_target": true,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": false,
+        "seed": 42,
+        "negative_policy": "none"
+      }
+    },
+    {
+      "model_id": "INTL-COMP-random_forest-20261010-182938-e99d18",
+      "label": "Random Forest \u00b7 Intl guests \u00b7 competition \u00b7 trained 10 Oct 18:29:38",
+      "reference_model": false,
+      "target_definition": "International hotel guests \u2014 guests per day (International \u2014 all 45 reported nationalities (daily total))",
+      "scope": "international_total",
+      "grain": "daily",
+      "mode": "competition",
+      "mode_definition": "Competition Test Prediction (may use observed test-time hotel fields)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos",
+        "new_arrivals",
+        "new_arrivals_7d"
+      ],
+      "hyperparameters": {
+        "n_estimators": 300,
+        "max_depth": 16,
+        "min_samples_leaf": 8,
+        "max_features": 0.3
+      },
+      "log_target": true,
+      "monotone": true,
+      "monotone_features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "p2p_28d"
+      ],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='international_total', mode='competition') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/INTL-COMP-random_forest-20261010-182938-e99d18/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/INTL-COMP-random_forest-20261010-182938-e99d18/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/INTL-COMP-random_forest-20261010-182938-e99d18/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 1352.4016224923498,
+        "RMSE": 1732.4949975765667,
+        "R2": 0.7956455163886437,
+        "WMAPE": 0.05419964911307076,
+        "Pearson": 0.8940407862093562,
+        "Spearman": 0.9022138933219493,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 1841.7258992265238,
+        "RMSE": 2389.8393695332798,
+        "R2": 0.34967615478460023,
+        "WMAPE": 0.07578403477555981,
+        "Pearson": 0.7593412041753251,
+        "Spearman": 0.7613835095576434,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T18:29:38",
+      "simulator_ready": false,
+      "not_ready_reason": "Competition model: it needs same-day hotel arrivals that do not exist on scenario dates.",
+      "training_config": {
+        "scope": "international_total",
+        "mode": "competition",
+        "algorithm": "random_forest",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos",
+          "new_arrivals",
+          "new_arrivals_7d"
+        ],
+        "params": {
+          "n_estimators": 300,
+          "max_depth": 16,
+          "min_samples_leaf": 8,
+          "max_features": 0.3
+        },
+        "log_target": true,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": false,
+        "seed": 42,
+        "negative_policy": "none"
+      }
+    },
+    {
+      "model_id": "INTL-COMP-random_forest-20261010-182935-e99d18",
+      "label": "Random Forest \u00b7 Intl guests \u00b7 competition \u00b7 trained 10 Oct 18:29:35",
+      "reference_model": false,
+      "target_definition": "International hotel guests \u2014 guests per day (International \u2014 all 45 reported nationalities (daily total))",
+      "scope": "international_total",
+      "grain": "daily",
+      "mode": "competition",
+      "mode_definition": "Competition Test Prediction (may use observed test-time hotel fields)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos",
+        "new_arrivals",
+        "new_arrivals_7d"
+      ],
+      "hyperparameters": {
+        "n_estimators": 300,
+        "max_depth": 16,
+        "min_samples_leaf": 8,
+        "max_features": 0.3
+      },
+      "log_target": true,
+      "monotone": true,
+      "monotone_features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "p2p_28d"
+      ],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='international_total', mode='competition') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/INTL-COMP-random_forest-20261010-182935-e99d18/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/INTL-COMP-random_forest-20261010-182935-e99d18/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/INTL-COMP-random_forest-20261010-182935-e99d18/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 1352.4016224923519,
+        "RMSE": 1732.4949975765642,
+        "R2": 0.7956455163886442,
+        "WMAPE": 0.05419964911307083,
+        "Pearson": 0.894040786209357,
+        "Spearman": 0.9022138933219493,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 1841.7258992265006,
+        "RMSE": 2389.8393695332634,
+        "R2": 0.3496761547846139,
+        "WMAPE": 0.07578403477555878,
+        "Pearson": 0.7593412041753262,
+        "Spearman": 0.7613835095576434,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T18:29:35",
+      "simulator_ready": false,
+      "not_ready_reason": "Competition model: it needs same-day hotel arrivals that do not exist on scenario dates.",
+      "training_config": {
+        "scope": "international_total",
+        "mode": "competition",
+        "algorithm": "random_forest",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos",
+          "new_arrivals",
+          "new_arrivals_7d"
+        ],
+        "params": {
+          "n_estimators": 300,
+          "max_depth": 16,
+          "min_samples_leaf": 8,
+          "max_features": 0.3
+        },
+        "log_target": true,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": false,
+        "seed": 42,
+        "negative_policy": "none"
+      }
+    },
+    {
+      "model_id": "MKT-COMP-random_forest-20261010-153327-ed8a8d",
+      "label": "Random Forest \u00b7 Intl guests by nationality \u00b7 competition",
+      "reference_model": false,
+      "target_definition": "International hotel guests, by nationality \u2014 guests per nationality-day (International \u2014 by source market (daily \u00d7 nationality))",
+      "scope": "international_market",
+      "grain": "daily \u00d7 nationality",
+      "mode": "competition",
+      "mode_definition": "Competition Test Prediction (may use observed test-time hotel fields)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos",
+        "market",
+        "new_arrivals",
+        "new_arrivals_7d"
+      ],
+      "hyperparameters": {
+        "n_estimators": 250,
+        "max_depth": 9,
+        "min_samples_leaf": 9,
+        "max_features": 0.4
+      },
+      "log_target": true,
+      "monotone": true,
+      "monotone_features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "p2p_28d"
+      ],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-04-27",
+            "2024-06-21"
+          ],
+          [
+            "2024-06-22",
+            "2024-08-16"
+          ],
+          [
+            "2024-08-17",
+            "2024-10-11"
+          ],
+          [
+            "2024-10-12",
+            "2024-12-06"
+          ],
+          [
+            "2024-12-07",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 37103,
+        "eval_fit": 29388,
+        "holdout": 7715,
+        "test": 9202
+      },
+      "cross_validation": {
+        "folds": 5,
+        "horizon_days": 56
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='international_market', mode='competition') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/MKT-COMP-random_forest-20261010-153327-ed8a8d/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/MKT-COMP-random_forest-20261010-153327-ed8a8d/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/MKT-COMP-random_forest-20261010-153327-ed8a8d/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 96.29935759855032,
+        "RMSE": 251.77240332696076,
+        "R2": 0.9094806818413637,
+        "WMAPE": 0.1651487092569172,
+        "Pearson": 0.9569989332787785,
+        "Spearman": 0.9708356724194206,
+        "n": 7715
+      },
+      "cv_mean_metrics": {
+        "MAE": 92.71299971958918,
+        "RMSE": 223.04456373897946,
+        "R2": 0.9170749620954644,
+        "WMAPE": 0.16377810493308192,
+        "Pearson": 0.9696387352732213,
+        "Spearman": 0.9704603221434251,
+        "n": 2378.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T15:33:27",
+      "simulator_ready": false,
+      "not_ready_reason": "Competition model: it needs same-day hotel arrivals that do not exist on scenario dates.",
+      "training_config": {
+        "scope": "international_market",
+        "mode": "competition",
+        "algorithm": "random_forest",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos",
+          "market",
+          "new_arrivals",
+          "new_arrivals_7d"
+        ],
+        "params": {
+          "n_estimators": 250,
+          "max_depth": 9,
+          "min_samples_leaf": 9,
+          "max_features": 0.4
+        },
+        "log_target": true,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 5,
+        "cv_horizon_days": 56,
+        "permutation_importance": true,
+        "label": "",
+        "reference": false,
+        "seed": 42
+      }
+    },
+    {
+      "model_id": "ALL-WI-random_forest-20261010-123950-84eba1",
+      "label": "Random Forest \u00b7 All guests \u00b7 reference",
+      "reference_model": true,
+      "target_definition": "All hotel guests (international + domestic) \u2014 guests per day (Overall \u2014 international + domestic (daily total))",
+      "scope": "overall",
+      "grain": "daily",
+      "mode": "whatif",
+      "mode_definition": "What-if Forecasting (scenario-time features only)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos"
+      ],
+      "hyperparameters": {
+        "n_estimators": 400,
+        "max_depth": 12,
+        "min_samples_leaf": 3,
+        "max_features": 0.5
+      },
+      "log_target": false,
+      "monotone": true,
+      "monotone_features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "p2p_28d"
+      ],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='overall', mode='whatif') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/ALL-WI-random_forest-20261010-123950-84eba1/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/ALL-WI-random_forest-20261010-123950-84eba1/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/ALL-WI-random_forest-20261010-123950-84eba1/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 3697.582687141419,
+        "RMSE": 5151.652928871733,
+        "R2": 0.1971794361241852,
+        "WMAPE": 0.09051737324660555,
+        "Pearson": 0.4480574443804736,
+        "Spearman": 0.5407686236415518,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 3872.058646427067,
+        "RMSE": 4873.107944693647,
+        "R2": -0.16731449936206721,
+        "WMAPE": 0.09706851307935266,
+        "Pearson": 0.45553064047258757,
+        "Spearman": 0.4908663799968148,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T12:39:50",
+      "simulator_ready": true,
+      "not_ready_reason": null,
+      "training_config": {
+        "scope": "overall",
+        "mode": "whatif",
+        "algorithm": "random_forest",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos"
+        ],
+        "params": {},
+        "log_target": false,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": true,
+        "seed": 42
+      }
+    },
+    {
+      "model_id": "INTL-WI-random_forest-20261010-123923-f81968",
+      "label": "Random Forest \u00b7 Intl guests \u00b7 reference",
+      "reference_model": true,
+      "target_definition": "International hotel guests \u2014 guests per day (International \u2014 all 45 reported nationalities (daily total))",
+      "scope": "international_total",
+      "grain": "daily",
+      "mode": "whatif",
+      "mode_definition": "What-if Forecasting (scenario-time features only)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos"
+      ],
+      "hyperparameters": {
+        "n_estimators": 400,
+        "max_depth": 12,
+        "min_samples_leaf": 3,
+        "max_features": 0.5
+      },
+      "log_target": false,
+      "monotone": true,
+      "monotone_features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "p2p_28d"
+      ],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='international_total', mode='whatif') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/INTL-WI-random_forest-20261010-123923-f81968/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/INTL-WI-random_forest-20261010-123923-f81968/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/INTL-WI-random_forest-20261010-123923-f81968/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 1807.604110696863,
+        "RMSE": 2244.7721379516033,
+        "R2": 0.6569284389501466,
+        "WMAPE": 0.07244261386980735,
+        "Pearson": 0.8276959804097975,
+        "Spearman": 0.8412936284925567,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 2333.0142761856223,
+        "RMSE": 2859.585165447525,
+        "R2": -0.059741770134985606,
+        "WMAPE": 0.0976015685151767,
+        "Pearson": 0.6424916222536212,
+        "Spearman": 0.6524972134694066,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T12:39:23",
+      "simulator_ready": true,
+      "not_ready_reason": null,
+      "training_config": {
+        "scope": "international_total",
+        "mode": "whatif",
+        "algorithm": "random_forest",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos"
+        ],
+        "params": {},
+        "log_target": false,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": true,
+        "seed": 42
+      }
+    },
+    {
+      "model_id": "MKT-WI-random_forest-20261010-123137-c5fe30",
+      "label": "Random Forest \u00b7 Intl guests by nationality \u00b7 reference",
+      "reference_model": true,
+      "target_definition": "International hotel guests, by nationality \u2014 guests per nationality-day (International \u2014 by source market (daily \u00d7 nationality))",
+      "scope": "international_market",
+      "grain": "daily \u00d7 nationality",
+      "mode": "whatif",
+      "mode_definition": "What-if Forecasting (scenario-time features only)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos",
+        "market"
+      ],
+      "hyperparameters": {
+        "n_estimators": 400,
+        "max_depth": 12,
+        "min_samples_leaf": 3,
+        "max_features": 0.5
+      },
+      "log_target": true,
+      "monotone": true,
+      "monotone_features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "p2p_28d"
+      ],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 29172,
+        "eval_fit": 23199,
+        "holdout": 5973,
+        "test": 6940
+      },
+      "cross_validation": {
+        "folds": 3,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='international_market', mode='whatif') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/MKT-WI-random_forest-20261010-123137-c5fe30/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/MKT-WI-random_forest-20261010-123137-c5fe30/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/MKT-WI-random_forest-20261010-123137-c5fe30/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 193.30196188962813,
+        "RMSE": 425.85918231093024,
+        "R2": 0.7820824113194211,
+        "WMAPE": 0.2729454009651135,
+        "Pearson": 0.8869646356283567,
+        "Spearman": 0.9020425150855513,
+        "n": 5973
+      },
+      "cv_mean_metrics": {
+        "MAE": 176.41523540971045,
+        "RMSE": 373.70078429479514,
+        "R2": 0.803440140128249,
+        "WMAPE": 0.26046330794392686,
+        "Pearson": 0.916914420750173,
+        "Spearman": 0.918910638311455,
+        "n": 3003.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T12:31:37",
+      "simulator_ready": true,
+      "not_ready_reason": null,
+      "training_config": {
+        "scope": "international_market",
+        "mode": "whatif",
+        "algorithm": "random_forest",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos",
+          "market"
+        ],
+        "params": {},
+        "log_target": true,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 3,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": true,
+        "seed": 42
+      }
+    }
+  ]
+}
