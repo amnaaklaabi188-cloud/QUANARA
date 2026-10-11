@@ -1,0 +1,27 @@
+column,dtype_after_cleaning,role,description,empty_cells_pct
+Date,datetime64[us],key,Calendar date to which the guest counts apply (documented as string YYYY/M/D). International: one row per nationality per date. Domestic: exactly one row per date.,0.0
+Departure Country Name,str,market identifier / aggregation key,Full name of the country from which the flight departs.,0.0
+Departure City,str,derived predictor (count of active cities),City of origin; some countries have several departure cities.,0.0
+Arrival City,str,constant (excluded),Destination city; 'Abu Dhabi' in all observed records.,0.0
+Airline Name,str,"derived predictor (airline count, Etihad seat share)",Operating airline; 'Unknown' for a few unidentified records.,0.0
+Average Weekly Frequency,float64,predictor (decoded to daily flights),Average number of flights per week on the route during the reporting month. Dictionary: 'Populated with * in most observed rows … may not be available'.,1.031
+Business Class P2P Count,float64,excluded (approximate),Point-to-point Business Class passengers (Abu Dhabi is their final destination). * = not available.,1.031
+Business Class Seat Capacity,float64,derived predictor (business seat share),Business Class seats available on the route for the month. * = n/a (e.g. no Business cabin).,1.031
+Economy Class P2P Count,float64,excluded (approximate),Point-to-point Economy Class passengers for the route.,1.031
+Economy Class Seat Capacity,float64,component of Total Seats,Economy Class seats available on the route.,1.031
+First Class P2P Count,float64,excluded (approximate),Point-to-point First Class passengers; predominantly * (few routes offer First).,1.031
+First Class Seat Capacity,float64,component of Total Seats,First Class seats available; predominantly * as most airlines do not operate First.,1.031
+Load Factor,float64,predictor (recomputed after aggregation),Share of seat capacity occupied: Total PAX / Total Seats. Documented as a percentage string; values above 100% possible (overbooking / infant counting).,0.0
+Total P2P,int64,key predictor,Point-to-point passengers across all cabins: journey originates at the departure city and terminates at Abu Dhabi.,0.0
+Total PAX,int64,predictor,"All passengers on board across classes, including P2P and transfer/transit.",0.0
+Total PAX Excluding Infant,float64,excluded (near-duplicate of Total PAX),Total passengers minus lap infants; typically 1–5 below Total PAX.,0.001
+Total Seats,int64,key predictor (scenario lever),Total seat capacity offered across all cabins; the Load Factor denominator.,0.0
+Total Transfer,int64,predictor (distinguished from P2P),Passengers who arrived on this route and transferred to another flight at Abu Dhabi (change of aircraft / flight number).,0.0
+Total Transit,int64,excluded (near-zero variance),Passengers in transit through Abu Dhabi (same aircraft / simpler connection). Mostly 0.,0.0
+Transfer Business Class Count,float64,excluded (approximate),Business Class passengers who transferred at Abu Dhabi. * = not available.,1.032
+Transfer Economy Class Count,float64,excluded (approximate),Economy Class passengers who transferred at Abu Dhabi. * = not available.,1.032
+Transfer First Class Count,float64,excluded (approximate),First Class passengers who transferred at Abu Dhabi. * = not available.,1.032
+Transit Business Class Count,float64,excluded (inconsistent),Business Class passengers in transit at Abu Dhabi. * = not available.,1.031
+Transit Economy Class Count,float64,excluded (inconsistent),Economy Class passengers in transit at Abu Dhabi. * = not available.,1.031
+Transit First Count,float64,excluded (inconsistent),First Class passengers in transit (note the abbreviated name vs. the 'Class Count' pattern). * = not available.,1.031
+Destination,str,constant (excluded),IATA code of the arrival airport; 'AUH' in all observed records.,0.0

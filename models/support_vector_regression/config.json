@@ -1,0 +1,348 @@
+{
+  "algorithm": "svr",
+  "name": "Support Vector Regression",
+  "description": "Support Vector Regression with an RBF kernel on standardised inputs and target. Slow on the market panel.",
+  "preprocessing": "`TransformedTargetRegressor` around `Pipeline`: ColumnTransformer (numeric features \u2192 median imputation fitted on the training rows, with a binary missing-indicator column per feature, then StandardScaler; categorical features (the market identifier) \u2192 one-hot encoding, unknown categories ignored) \u2192 `SVR(kernel='rbf', C, epsilon, gamma)`. The target is standardised (log1p first when `log_target` is on) and predictions are transformed back to guests. Kernel cost grows quadratically with rows: the 29k-row market panel takes several minutes. With the `floor_zero` policy the pipeline is wrapped in `NonNegative`, which floors predictions at 0 (raw negatives are still counted in the metadata).",
+  "supports_monotone_constraint": false,
+  "default_hyperparameters": {
+    "C": 3.0,
+    "epsilon": 0.05,
+    "gamma": "scale"
+  },
+  "hyperparameter_space": {
+    "C": {
+      "label": "C",
+      "type": "float",
+      "default": 3.0,
+      "range_or_choices": [
+        0.01,
+        100.0
+      ],
+      "help": "Inverse regularisation (on the standardised target)."
+    },
+    "epsilon": {
+      "label": "\u03b5",
+      "type": "float",
+      "default": 0.05,
+      "range_or_choices": [
+        0.0,
+        1.0
+      ],
+      "help": "Insensitive-tube width (standardised target units)."
+    },
+    "gamma": {
+      "label": "\u03b3 (RBF)",
+      "type": "choice",
+      "default": "scale",
+      "range_or_choices": [
+        "scale",
+        "auto"
+      ],
+      "help": "RBF kernel width."
+    }
+  },
+  "models": [
+    {
+      "model_id": "INTL-WI-svr-20261010-123947-3d1cd1",
+      "label": "Support Vector Regression \u00b7 Intl guests \u00b7 reference",
+      "reference_model": true,
+      "target_definition": "International hotel guests \u2014 guests per day (International \u2014 all 45 reported nationalities (daily total))",
+      "scope": "international_total",
+      "grain": "daily",
+      "mode": "whatif",
+      "mode_definition": "What-if Forecasting (scenario-time features only)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos"
+      ],
+      "hyperparameters": {
+        "C": 3.0,
+        "epsilon": 0.05,
+        "gamma": "scale"
+      },
+      "log_target": false,
+      "monotone": false,
+      "monotone_features": [],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='international_total', mode='whatif') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/INTL-WI-svr-20261010-123947-3d1cd1/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/INTL-WI-svr-20261010-123947-3d1cd1/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/INTL-WI-svr-20261010-123947-3d1cd1/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 2469.0069735183556,
+        "RMSE": 2954.5067078643597,
+        "R2": 0.405693948052798,
+        "WMAPE": 0.0989493870732003,
+        "Pearson": 0.7987254651317025,
+        "Spearman": 0.8100508065197582,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 2747.5267788245724,
+        "RMSE": 3391.069603503174,
+        "R2": -0.2159927126394305,
+        "WMAPE": 0.11108071426718394,
+        "Pearson": 0.4804905230099766,
+        "Spearman": 0.45173691702445806,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T12:39:47",
+      "simulator_ready": true,
+      "not_ready_reason": null,
+      "training_config": {
+        "scope": "international_total",
+        "mode": "whatif",
+        "algorithm": "svr",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos"
+        ],
+        "params": {},
+        "log_target": false,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": true,
+        "seed": 42
+      }
+    },
+    {
+      "model_id": "MKT-WI-svr-20261010-123918-b5964e",
+      "label": "Support Vector Regression \u00b7 Intl guests by nationality \u00b7 reference",
+      "reference_model": true,
+      "target_definition": "International hotel guests, by nationality \u2014 guests per nationality-day (International \u2014 by source market (daily \u00d7 nationality))",
+      "scope": "international_market",
+      "grain": "daily \u00d7 nationality",
+      "mode": "whatif",
+      "mode_definition": "What-if Forecasting (scenario-time features only)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos",
+        "market"
+      ],
+      "hyperparameters": {
+        "C": 3.0,
+        "epsilon": 0.05,
+        "gamma": "scale"
+      },
+      "log_target": true,
+      "monotone": false,
+      "monotone_features": [],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 29172,
+        "eval_fit": 23199,
+        "holdout": 5973,
+        "test": 6940
+      },
+      "cross_validation": {
+        "folds": 2,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='international_market', mode='whatif') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/MKT-WI-svr-20261010-123918-b5964e/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/MKT-WI-svr-20261010-123918-b5964e/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/MKT-WI-svr-20261010-123918-b5964e/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 183.21494972471763,
+        "RMSE": 365.09659058355385,
+        "R2": 0.8398319797138247,
+        "WMAPE": 0.25870238163423104,
+        "Pearson": 0.9181194626957581,
+        "Spearman": 0.9253602631631701,
+        "n": 5973
+      },
+      "cv_mean_metrics": {
+        "MAE": 209.35021044936553,
+        "RMSE": 492.51300845279695,
+        "R2": 0.7070025740814077,
+        "WMAPE": 0.2893386795382632,
+        "Pearson": 0.8492745562497115,
+        "Spearman": 0.9111035903654273,
+        "n": 3003.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T12:39:18",
+      "simulator_ready": true,
+      "not_ready_reason": null,
+      "training_config": {
+        "scope": "international_market",
+        "mode": "whatif",
+        "algorithm": "svr",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos",
+          "market"
+        ],
+        "params": {},
+        "log_target": true,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 2,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": true,
+        "seed": 42
+      }
+    }
+  ]
+}

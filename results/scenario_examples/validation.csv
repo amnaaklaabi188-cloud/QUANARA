@@ -1,0 +1,19 @@
+check,model_id,market,passed,detail
+zero change reproduces the baseline,INTL-WI-random_forest-20261010-190246-8c6b93,ALL,True,within floating-point precision (max |scenario − baseline| = 9.5e-11 guests)
+zero change reproduces the baseline,INTL-WI-ridge-20261010-173514-8b8ec2,ALL,True,exact
+zero change reproduces the baseline,DOM-WI-catboost-20261010-124029-d248ff,ALL,True,exact
+zero change reproduces the baseline,DOM-WI-ridge-20261010-124010-fd1946,ALL,True,exact
+zero change reproduces the baseline,ALL-WI-catboost-20261010-124009-41b203,ALL,True,exact
+zero change reproduces the baseline,ALL-WI-random_forest-20261010-123950-84eba1,ALL,True,within floating-point precision (max |scenario − baseline| = 1.5e-11 guests)
+zero change reproduces the baseline,ALL-WI-ridge-20261010-123947-282a1a,ALL,True,exact
+zero change reproduces the baseline,INTL-WI-svr-20261010-123947-3d1cd1,ALL,True,exact
+zero change reproduces the baseline,INTL-WI-xgboost-20261010-123947-af9e7a,ALL,True,exact
+zero change reproduces the baseline,INTL-WI-catboost-20261010-123941-734b77,ALL,True,exact
+zero change reproduces the baseline,INTL-WI-random_forest-20261010-123923-f81968,ALL,True,within floating-point precision (max |scenario − baseline| = 1.8e-11 guests)
+zero change reproduces the baseline,INTL-WI-ridge-20261010-123919-3722ab,ALL,True,exact
+zero change reproduces the baseline,MKT-WI-svr-20261010-123918-b5964e,INDIA,True,exact
+zero change reproduces the baseline,MKT-WI-xgboost-20261010-123145-4d4b72,INDIA,True,exact
+zero change reproduces the baseline,MKT-WI-random_forest-20261010-123137-c5fe30,INDIA,True,within floating-point precision (max |scenario − baseline| = 6.8e-12 guests)
+zero change reproduces the baseline,MKT-WI-catboost-20261010-123103-7d603b,INDIA,True,exact
+Judges' Demo reproduces the saved reference,MKT-WI-catboost-20261010-123103-7d603b,RUSSIAN FEDERATION,True,"1,732.2 → 1,806.5 guests/day (+4.29%)"
++20% seats: consistency checks and proportional quantities,MKT-WI-catboost-20261010-123103-7d603b,RUSSIAN FEDERATION,True,Seats +20.0000%; Flights +20.0000%; PAX +20.0000%; P2P passengers +20.0000%

@@ -1,0 +1,18 @@
+# Versions verified in the development environment (Python 3.13).
+pandas==3.0.6
+numpy==2.5.3
+scipy==1.18.1
+scikit-learn==1.9.1
+catboost==1.2.10
+xgboost==3.4.1
+openpyxl==3.1.5
+pyarrow==25.0.1
+joblib==1.6.0
+streamlit==1.65.0
+plotly==7.1.0
+kaleido==1.5.0        # server-side PNG export (needs a local Chrome; the chart toolbar works without it)
+pdfplumber==0.11.10   # reading Data_Dictionary.pdf
+pypdf==6.20.0
+pytest==9.1.1
+anthropic==1.13.0     # optional: Claude-enhanced Copilot answers (only used when an API key is supplied)
+matplotlib==3.11.2    # figures written by analysis/ and evaluation/ scripts

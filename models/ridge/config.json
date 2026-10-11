@@ -1,0 +1,1253 @@
+{
+  "algorithm": "ridge",
+  "name": "Ridge Regression",
+  "description": "Linear model with L2 penalty on standardised inputs. Fast and transparent; extrapolates linearly.",
+  "preprocessing": "`Pipeline`: ColumnTransformer (numeric features \u2192 median imputation fitted on the training rows, with a binary missing-indicator column per feature, then StandardScaler; categorical features (the market identifier) \u2192 one-hot encoding, unknown categories ignored) \u2192 `Ridge(alpha)`. Linear, so it extrapolates beyond the training range and can predict below zero for small markets. With `log_target`, the estimator is wrapped in `TransformedTargetRegressor(log1p, expm1)`; every metric is reported in guests. With the `floor_zero` policy the pipeline is wrapped in `NonNegative`, which floors predictions at 0 (raw negatives are still counted in the metadata).",
+  "supports_monotone_constraint": false,
+  "default_hyperparameters": {
+    "alpha": 10.0
+  },
+  "hyperparameter_space": {
+    "alpha": {
+      "label": "Regularisation \u03b1",
+      "type": "float",
+      "default": 10.0,
+      "range_or_choices": [
+        0.01,
+        1000.0
+      ],
+      "help": "L2 penalty strength (log scale)."
+    }
+  },
+  "models": [
+    {
+      "model_id": "INTL-WI-ridge-20261010-173514-8b8ec2",
+      "label": "Ridge Regression \u00b7 Intl guests",
+      "reference_model": false,
+      "target_definition": "International hotel guests \u2014 guests per day (International \u2014 all 45 reported nationalities (daily total))",
+      "scope": "international_total",
+      "grain": "daily",
+      "mode": "whatif",
+      "mode_definition": "What-if Forecasting (scenario-time features only)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos"
+      ],
+      "hyperparameters": {
+        "alpha": 10.0
+      },
+      "log_target": false,
+      "monotone": false,
+      "monotone_features": [],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='international_total', mode='whatif') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/INTL-WI-ridge-20261010-173514-8b8ec2/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/INTL-WI-ridge-20261010-173514-8b8ec2/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/INTL-WI-ridge-20261010-173514-8b8ec2/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 2712.741739153863,
+        "RMSE": 3329.1169988182032,
+        "R2": 0.24543212991977037,
+        "WMAPE": 0.10871744602432432,
+        "Pearson": 0.7982037526882909,
+        "Spearman": 0.8305322794939588,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 1735.211213770558,
+        "RMSE": 2223.177285845729,
+        "R2": 0.40100117655262946,
+        "WMAPE": 0.07178453663010795,
+        "Pearson": 0.7063504929796576,
+        "Spearman": 0.6754670998081175,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T17:35:14",
+      "simulator_ready": true,
+      "not_ready_reason": null,
+      "training_config": {
+        "scope": "international_total",
+        "mode": "whatif",
+        "algorithm": "ridge",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos"
+        ],
+        "params": {
+          "alpha": 10.0
+        },
+        "log_target": false,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": false,
+        "seed": 42,
+        "negative_policy": "none"
+      }
+    },
+    {
+      "model_id": "ALL-COMP-ridge-20261010-124156-2feca1",
+      "label": "Ridge Regression \u00b7 All guests \u00b7 competition \u00b7 reference",
+      "reference_model": true,
+      "target_definition": "All hotel guests (international + domestic) \u2014 guests per day (Overall \u2014 international + domestic (daily total))",
+      "scope": "overall",
+      "grain": "daily",
+      "mode": "competition",
+      "mode_definition": "Competition Test Prediction (may use observed test-time hotel fields)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos",
+        "new_arrivals",
+        "new_arrivals_7d"
+      ],
+      "hyperparameters": {
+        "alpha": 10.0
+      },
+      "log_target": false,
+      "monotone": false,
+      "monotone_features": [],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='overall', mode='competition') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/ALL-COMP-ridge-20261010-124156-2feca1/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/ALL-COMP-ridge-20261010-124156-2feca1/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/ALL-COMP-ridge-20261010-124156-2feca1/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 1729.091432349335,
+        "RMSE": 2290.1436882015687,
+        "R2": 0.8413460977416872,
+        "WMAPE": 0.04232841502199692,
+        "Pearson": 0.9181970586851051,
+        "Spearman": 0.9132576447493574,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 2051.96739713638,
+        "RMSE": 2595.9752435473165,
+        "R2": 0.6947586346675617,
+        "WMAPE": 0.05043459674399722,
+        "Pearson": 0.8775088314137024,
+        "Spearman": 0.8667502787068004,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T12:41:56",
+      "simulator_ready": false,
+      "not_ready_reason": "Competition model: it needs same-day hotel arrivals that do not exist on scenario dates.",
+      "training_config": {
+        "scope": "overall",
+        "mode": "competition",
+        "algorithm": "ridge",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos",
+          "new_arrivals",
+          "new_arrivals_7d"
+        ],
+        "params": {},
+        "log_target": false,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": true,
+        "seed": 42
+      }
+    },
+    {
+      "model_id": "DOM-COMP-ridge-20261010-124135-deb259",
+      "label": "Ridge Regression \u00b7 Domestic guests \u00b7 competition \u00b7 reference",
+      "reference_model": true,
+      "target_definition": "Domestic hotel guests \u2014 guests per day (Domestic (daily total))",
+      "scope": "domestic",
+      "grain": "daily",
+      "mode": "competition",
+      "mode_definition": "Competition Test Prediction (may use observed test-time hotel fields)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos",
+        "new_arrivals",
+        "new_arrivals_7d"
+      ],
+      "hyperparameters": {
+        "alpha": 10.0
+      },
+      "log_target": false,
+      "monotone": false,
+      "monotone_features": [],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='domestic', mode='competition') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/DOM-COMP-ridge-20261010-124135-deb259/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/DOM-COMP-ridge-20261010-124135-deb259/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/DOM-COMP-ridge-20261010-124135-deb259/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 780.667381315102,
+        "RMSE": 1165.1339240675197,
+        "R2": 0.912069070983163,
+        "WMAPE": 0.04910721160120354,
+        "Pearson": 0.9583215817138646,
+        "Spearman": 0.9558699127759901,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 1018.4285046239507,
+        "RMSE": 1252.82413087239,
+        "R2": 0.7975963714941758,
+        "WMAPE": 0.06214211180441555,
+        "Pearson": 0.9469235644429235,
+        "Spearman": 0.9288530246386899,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T12:41:35",
+      "simulator_ready": false,
+      "not_ready_reason": "Competition model: it needs same-day hotel arrivals that do not exist on scenario dates.",
+      "training_config": {
+        "scope": "domestic",
+        "mode": "competition",
+        "algorithm": "ridge",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos",
+          "new_arrivals",
+          "new_arrivals_7d"
+        ],
+        "params": {},
+        "log_target": false,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": true,
+        "seed": 42
+      }
+    },
+    {
+      "model_id": "INTL-COMP-ridge-20261010-124114-3b07cc",
+      "label": "Ridge Regression \u00b7 Intl guests \u00b7 competition \u00b7 reference",
+      "reference_model": true,
+      "target_definition": "International hotel guests \u2014 guests per day (International \u2014 all 45 reported nationalities (daily total))",
+      "scope": "international_total",
+      "grain": "daily",
+      "mode": "competition",
+      "mode_definition": "Competition Test Prediction (may use observed test-time hotel fields)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos",
+        "new_arrivals",
+        "new_arrivals_7d"
+      ],
+      "hyperparameters": {
+        "alpha": 10.0
+      },
+      "log_target": false,
+      "monotone": false,
+      "monotone_features": [],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='international_total', mode='competition') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/INTL-COMP-ridge-20261010-124114-3b07cc/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/INTL-COMP-ridge-20261010-124114-3b07cc/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/INTL-COMP-ridge-20261010-124114-3b07cc/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 1185.8350912881303,
+        "RMSE": 1509.6808748731494,
+        "R2": 0.8448290215165274,
+        "WMAPE": 0.04752423006956756,
+        "Pearson": 0.9277430074834597,
+        "Spearman": 0.9342085424979408,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 1202.8338248683676,
+        "RMSE": 1530.211736583964,
+        "R2": 0.7601742496437146,
+        "WMAPE": 0.04850966175617465,
+        "Pearson": 0.8875072602066785,
+        "Spearman": 0.8589766123908883,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T12:41:14",
+      "simulator_ready": false,
+      "not_ready_reason": "Competition model: it needs same-day hotel arrivals that do not exist on scenario dates.",
+      "training_config": {
+        "scope": "international_total",
+        "mode": "competition",
+        "algorithm": "ridge",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos",
+          "new_arrivals",
+          "new_arrivals_7d"
+        ],
+        "params": {},
+        "log_target": false,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": true,
+        "seed": 42
+      }
+    },
+    {
+      "model_id": "DOM-WI-ridge-20261010-124010-fd1946",
+      "label": "Ridge Regression \u00b7 Domestic guests \u00b7 reference",
+      "reference_model": true,
+      "target_definition": "Domestic hotel guests \u2014 guests per day (Domestic (daily total))",
+      "scope": "domestic",
+      "grain": "daily",
+      "mode": "whatif",
+      "mode_definition": "What-if Forecasting (scenario-time features only)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos"
+      ],
+      "hyperparameters": {
+        "alpha": 10.0
+      },
+      "log_target": false,
+      "monotone": false,
+      "monotone_features": [],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='domestic', mode='whatif') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/DOM-WI-ridge-20261010-124010-fd1946/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/DOM-WI-ridge-20261010-124010-fd1946/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/DOM-WI-ridge-20261010-124010-fd1946/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 2143.48095876599,
+        "RMSE": 3311.4079592708326,
+        "R2": 0.28974329293428003,
+        "WMAPE": 0.134833830033928,
+        "Pearson": 0.5883281909802418,
+        "Spearman": 0.66959099832028,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 2025.0238779642277,
+        "RMSE": 2724.391773864473,
+        "R2": 0.013065224355568283,
+        "WMAPE": 0.124472482588244,
+        "Pearson": 0.5930791765252377,
+        "Spearman": 0.7039881653975282,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T12:40:10",
+      "simulator_ready": true,
+      "not_ready_reason": null,
+      "training_config": {
+        "scope": "domestic",
+        "mode": "whatif",
+        "algorithm": "ridge",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos"
+        ],
+        "params": {},
+        "log_target": false,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": true,
+        "seed": 42
+      }
+    },
+    {
+      "model_id": "ALL-WI-ridge-20261010-123947-282a1a",
+      "label": "Ridge Regression \u00b7 All guests \u00b7 reference",
+      "reference_model": true,
+      "target_definition": "All hotel guests (international + domestic) \u2014 guests per day (Overall \u2014 international + domestic (daily total))",
+      "scope": "overall",
+      "grain": "daily",
+      "mode": "whatif",
+      "mode_definition": "What-if Forecasting (scenario-time features only)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos"
+      ],
+      "hyperparameters": {
+        "alpha": 10.0
+      },
+      "log_target": false,
+      "monotone": false,
+      "monotone_features": [],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='overall', mode='whatif') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/ALL-WI-ridge-20261010-123947-282a1a/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/ALL-WI-ridge-20261010-123947-282a1a/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/ALL-WI-ridge-20261010-123947-282a1a/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 3450.993840075907,
+        "RMSE": 4831.601491755225,
+        "R2": 0.2938328539168129,
+        "WMAPE": 0.08448084165370831,
+        "Pearson": 0.5620237959750153,
+        "Spearman": 0.6450994677514014,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 2955.6675303291822,
+        "RMSE": 4025.771036004781,
+        "R2": 0.22810071827569026,
+        "WMAPE": 0.0730217151057162,
+        "Pearson": 0.6259634340799528,
+        "Spearman": 0.6725394171046344,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T12:39:47",
+      "simulator_ready": true,
+      "not_ready_reason": null,
+      "training_config": {
+        "scope": "overall",
+        "mode": "whatif",
+        "algorithm": "ridge",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos"
+        ],
+        "params": {},
+        "log_target": false,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": true,
+        "seed": 42
+      }
+    },
+    {
+      "model_id": "INTL-WI-ridge-20261010-123919-3722ab",
+      "label": "Ridge Regression \u00b7 Intl guests \u00b7 reference",
+      "reference_model": true,
+      "target_definition": "International hotel guests \u2014 guests per day (International \u2014 all 45 reported nationalities (daily total))",
+      "scope": "international_total",
+      "grain": "daily",
+      "mode": "whatif",
+      "mode_definition": "What-if Forecasting (scenario-time features only)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos"
+      ],
+      "hyperparameters": {
+        "alpha": 10.0
+      },
+      "log_target": false,
+      "monotone": false,
+      "monotone_features": [],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-02-03",
+            "2024-05-03"
+          ],
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 884,
+        "eval_fit": 703,
+        "holdout": 181,
+        "test": 212
+      },
+      "cross_validation": {
+        "folds": 4,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='international_total', mode='whatif') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/INTL-WI-ridge-20261010-123919-3722ab/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/INTL-WI-ridge-20261010-123919-3722ab/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/INTL-WI-ridge-20261010-123919-3722ab/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 2712.741739153863,
+        "RMSE": 3329.1169988182032,
+        "R2": 0.24543212991977037,
+        "WMAPE": 0.10871744602432432,
+        "Pearson": 0.7982037526882909,
+        "Spearman": 0.8305322794939588,
+        "n": 181
+      },
+      "cv_mean_metrics": {
+        "MAE": 1735.211213770558,
+        "RMSE": 2223.177285845729,
+        "R2": 0.40100117655262946,
+        "WMAPE": 0.07178453663010795,
+        "Pearson": 0.7063504929796576,
+        "Spearman": 0.6754670998081175,
+        "n": 91.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T12:39:19",
+      "simulator_ready": true,
+      "not_ready_reason": null,
+      "training_config": {
+        "scope": "international_total",
+        "mode": "whatif",
+        "algorithm": "ridge",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos"
+        ],
+        "params": {},
+        "log_target": false,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 4,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": true,
+        "seed": 42
+      }
+    },
+    {
+      "model_id": "MKT-WI-ridge-20261010-123104-b69aeb",
+      "label": "Ridge Regression \u00b7 Intl guests by nationality \u00b7 reference",
+      "reference_model": true,
+      "target_definition": "International hotel guests, by nationality \u2014 guests per nationality-day (International \u2014 by source market (daily \u00d7 nationality))",
+      "scope": "international_market",
+      "grain": "daily \u00d7 nationality",
+      "mode": "whatif",
+      "mode_definition": "What-if Forecasting (scenario-time features only)",
+      "features": [
+        "p2p",
+        "seats_7d",
+        "p2p_7d",
+        "transfer_7d",
+        "flights_7d",
+        "load_factor_7d",
+        "p2p_28d",
+        "p2p_share_7d",
+        "seats_growth_28d",
+        "p2p_growth_28d",
+        "guests_lag364",
+        "guests_lag364_7d",
+        "dow",
+        "is_weekend",
+        "month",
+        "doy_sin",
+        "doy_cos",
+        "market"
+      ],
+      "hyperparameters": {
+        "alpha": 10.0
+      },
+      "log_target": false,
+      "monotone": false,
+      "monotone_features": [],
+      "negative_policy": "none",
+      "seed": 42,
+      "periods": {
+        "modelling": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "eval_fit": [
+          "2023-03-01",
+          "2025-01-31"
+        ],
+        "holdout": [
+          "2025-02-01",
+          "2025-07-31"
+        ],
+        "deployment_fit": [
+          "2023-03-01",
+          "2025-07-31"
+        ],
+        "cv_folds": [
+          [
+            "2024-05-04",
+            "2024-08-02"
+          ],
+          [
+            "2024-08-03",
+            "2024-11-01"
+          ],
+          [
+            "2024-11-02",
+            "2025-01-31"
+          ]
+        ]
+      },
+      "rows": {
+        "modelling": 29172,
+        "eval_fit": 23199,
+        "holdout": 5973,
+        "test": 6940
+      },
+      "cross_validation": {
+        "folds": 3,
+        "horizon_days": 91
+      },
+      "training_dataset": "quanara.integration.model_frame(scope='international_market', mode='whatif') \u2192 training_rows, 2023-03-01 \u2192 2025-01-31 for evaluation, refit on 2023-03-01 \u2192 2025-07-31",
+      "artifacts": {
+        "deployment_pipeline": "artifacts/models/MKT-WI-ridge-20261010-123104-b69aeb/model_final.joblib",
+        "evaluation_pipeline": "artifacts/models/MKT-WI-ridge-20261010-123104-b69aeb/model_eval.joblib",
+        "holdout_predictions": "artifacts/models/MKT-WI-ridge-20261010-123104-b69aeb/predictions_holdout.csv"
+      },
+      "holdout_metrics": {
+        "MAE": 206.83073475694027,
+        "RMSE": 359.8517789383669,
+        "R2": 0.8444007279486947,
+        "WMAPE": 0.29204824037107296,
+        "Pearson": 0.9285837316647643,
+        "Spearman": 0.8842958370806538,
+        "n": 5973
+      },
+      "cv_mean_metrics": {
+        "MAE": 176.16702402676705,
+        "RMSE": 312.48165349499465,
+        "R2": 0.8609450047746359,
+        "WMAPE": 0.2619252120296884,
+        "Pearson": 0.9289256594479296,
+        "Spearman": 0.893508294769053,
+        "n": 3003.0
+      },
+      "software": {
+        "python": "3.13.12",
+        "pandas": "3.0.6",
+        "numpy": "2.5.3",
+        "sklearn": "1.9.1",
+        "catboost": "1.2.10",
+        "xgboost": "3.4.1"
+      },
+      "trained_at": "2026-10-10T12:31:04",
+      "simulator_ready": false,
+      "not_ready_reason": "Its saved predictions include 356 negative guest counts (trained before the zero floor existed); retrain it with \u201cFloor at zero\u201d to use it in the simulator.",
+      "training_config": {
+        "scope": "international_market",
+        "mode": "whatif",
+        "algorithm": "ridge",
+        "features": [
+          "p2p",
+          "seats_7d",
+          "p2p_7d",
+          "transfer_7d",
+          "flights_7d",
+          "load_factor_7d",
+          "p2p_28d",
+          "p2p_share_7d",
+          "seats_growth_28d",
+          "p2p_growth_28d",
+          "guests_lag364",
+          "guests_lag364_7d",
+          "dow",
+          "is_weekend",
+          "month",
+          "doy_sin",
+          "doy_cos",
+          "market"
+        ],
+        "params": {},
+        "log_target": false,
+        "monotone": true,
+        "holdout_start": "2025-02-01",
+        "cv_folds": 3,
+        "cv_horizon_days": 91,
+        "permutation_importance": true,
+        "label": "",
+        "reference": true,
+        "seed": 42
+      }
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+feature,label,group,whatif_eligible,n,missing_pct,pearson_r,pearson_p,effective_n,pearson_r_day_over_day,n_day_over_day
+new_arrivals,New Arrivals (day),competition,False,884,0,0.756757,5.14267e-165,245.659,0.701305,883
+new_arrivals_7d,New Arrivals (trailing 7 days),competition,False,884,0,0.673415,7.61717e-118,99.2828,0.244799,883
+guests_lag364,Previous Guests (same weekday last year),historical,True,884,0,0.580986,6.22419e-81,155.157,0.546332,883
+p2p_7d,Total P2P (trailing 7 days),aviation,True,884,0,0.580945,6.42431e-81,88.5147,-0.0297693,883
+guests_lag364_7d,"Previous Guests rolling mean (last year, 7 d)",historical,True,884,0,0.551517,1.69851e-71,91.6519,0.0520329,883
+p2p,Total P2P (day),aviation,True,884,0,0.530286,2.92868e-65,143.94,-0.479867,883
+pax,Total PAX (day),aviation,True,884,0,0.512635,2.11057e-60,114.438,-0.178191,883
+pax_7d,Total PAX (trailing 7 days),aviation,True,884,0,0.505429,1.68703e-58,87.1956,-0.0209914,883
+load_factor_7d,Load Factor (trailing 7 days),aviation,True,884,0,0.448774,5.0454e-45,90.6866,-0.0439994,883
+load_factor,Load Factor (day),aviation,True,884,0,0.439279,5.29278e-43,149.899,-0.421851,883
+n_airlines,Active Airlines (day),derived,True,884,0,0.421493,2.19031e-39,239.709,0.00298282,883
+p2p_prev7d,Previous Total P2P (prior week),historical,True,884,0,0.413023,9.73916e-38,88.4862,-0.0395333,883
+p2p_28d,Total P2P (trailing 28 days),aviation,True,884,0,0.408721,6.41861e-37,86.7125,-0.0585336,883
+seats,Total Seats (day),aviation,True,884,0,0.398247,5.65306e-35,113.348,0.127978,883
+flights,Flights (day),aviation,True,884,0,0.397779,6.88158e-35,109.894,0.126395,883
+seats_7d,Total Seats (trailing 7 days),aviation,True,884,0,0.396025,1.43208e-34,86.5335,0.0482216,883
+flights_7d,Flights (trailing 7 days),aviation,True,884,0,0.390868,1.20555e-33,86.5148,0.0437119,883
+n_cities,Active Departure Cities (day),derived,True,884,0,0.382197,3.98281e-32,247.411,0.159902,883
+seats_prev7d,Previous Total Seats (prior week),historical,True,884,0,0.379365,1.22039e-31,86.5297,-0.0275235,883
+seats_28d,Total Seats (trailing 28 days),aviation,True,884,0,0.375054,6.57099e-31,86.2526,0.0255222,883
+transfer_share_7d,Transfer Share (7 days),derived,True,884,0,-0.367713,1.09025e-29,90.0121,0.0378202,883
+p2p_share_7d,P2P Share (7 days),derived,True,884,0,0.367711,1.09085e-29,90.0121,-0.0378131,883
+doy_cos,Seasonal encoding (cos),time,True,884,0,0.326012,2.45943e-23,86.2814,0.0103065,883
+n_routes,Active Routes (day),derived,True,884,0,0.325491,2.91247e-23,160.883,-0.145817,883
+transfer,Total Transfer (day),aviation,True,884,0,0.30576,1.38195e-20,141.956,0.375589,883
+year,Year,time,True,884,0,0.297498,1.59349e-19,87.0789,-0.116565,883
+transfer_7d,Total Transfer (trailing 7 days),aviation,True,884,0,0.269128,3.91715e-16,86.8493,0.0183233,883
+p2p_growth_28d,P2P Growth (28 d vs prior 28 d),derived,True,884,0,0.205218,7.33848e-10,88.1306,-0.0241274,883
+business_seat_share_7d,Business Seat Share (7 days),derived,True,884,0,0.133146,7.16258e-05,90.4683,-0.0320213,883
+quarter,Quarter,time,True,884,0,0.0979684,0.00354885,91.9054,0.062615,883
+seats_per_flight_7d,Seats per Flight (7 days),derived,True,884,0,0.0675813,0.0445594,92.8904,0.0129588,883
+seats_growth_28d,Seats Growth (28 d vs prior 28 d),derived,True,884,0,0.0571174,0.0896577,88.547,0.0279275,883
+etihad_seat_share_7d,Etihad Seat Share (7 days),derived,True,884,0,-0.0475317,0.157945,93.2983,-0.0233929,883
+month,Month,time,True,884,0,0.0452339,0.17905,92.5701,0.10468,883
+same_day_guests,Same-Day Guests (day),competition,False,884,0,0.0204091,0.544508,389.066,-0.0575709,883
+is_weekend,Weekend Indicator,time,True,884,0,0.016813,0.617628,533.868,-0.0255704,883
+doy_sin,Seasonal encoding (sin),time,True,884,0,-0.00866441,0.796984,86.2813,-0.00173872,883

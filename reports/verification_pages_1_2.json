@@ -1,0 +1,883 @@
+{
+  "generated_at": "2026-10-11T02:02:54",
+  "active_model": "MKT-WI-svr-20261010-123918-b5964e",
+  "passed": 125,
+  "total": 125,
+  "checks": [
+    {
+      "page": "1+2",
+      "check": "Flight rows",
+      "displayed": "117608",
+      "independent": "117608",
+      "status": "PASS"
+    },
+    {
+      "page": "1+2",
+      "check": "Flight first date",
+      "displayed": "2022-01-01",
+      "independent": "2022-01-01",
+      "status": "PASS"
+    },
+    {
+      "page": "1+2",
+      "check": "Flight last date",
+      "displayed": "2026-02-28",
+      "independent": "2026-02-28",
+      "status": "PASS"
+    },
+    {
+      "page": "1+2",
+      "check": "Flight monthly-grain rows (2022)",
+      "displayed": "1213",
+      "independent": "1213",
+      "status": "PASS"
+    },
+    {
+      "page": "1+2",
+      "check": "Flight daily-grain rows",
+      "displayed": "116395",
+      "independent": "116395",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "First daily-grain date",
+      "displayed": "2023-01-01",
+      "independent": "2023-01-01",
+      "status": "PASS"
+    },
+    {
+      "page": "1+2",
+      "check": "Departure countries (all rows)",
+      "displayed": "33",
+      "independent": "33",
+      "status": "PASS"
+    },
+    {
+      "page": "1+2",
+      "check": "Airlines (all rows)",
+      "displayed": "59",
+      "independent": "59",
+      "status": "PASS"
+    },
+    {
+      "page": "1+2",
+      "check": "\u03a3 monthly PAX in sparkline = \u03a3 Total PAX",
+      "displayed": "40279493.0",
+      "independent": "40279493",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Daily-row P2P passengers",
+      "displayed": "17507078.0",
+      "independent": "17507078.0",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Daily-row Transfer passengers",
+      "displayed": "17069665.0",
+      "independent": "17069665.0",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Daily-row Transit passengers",
+      "displayed": "164.0",
+      "independent": "164.0",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "P2P share of daily PAX (shown 1 dp)",
+      "displayed": "50.6",
+      "independent": "50.6",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Transfer share of daily PAX (shown 1 dp)",
+      "displayed": "49.4",
+      "independent": "49.4",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Daily rows with Transit > 0",
+      "displayed": "3",
+      "independent": "3",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "PAX = P2P + Transfer + Transit on every row",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Daily rows with load factor > 100% (shown 1 dp)",
+      "displayed": "8.5",
+      "independent": "8.5",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Flight card: monthly rows in text",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "1+2",
+      "check": "International train rows",
+      "displayed": "58622",
+      "independent": "58622",
+      "status": "PASS"
+    },
+    {
+      "page": "1+2",
+      "check": "International nationalities",
+      "displayed": "45",
+      "independent": "45",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Days with observed Guests",
+      "displayed": "1308",
+      "independent": "1308",
+      "status": "PASS"
+    },
+    {
+      "page": "1+2",
+      "check": "Domestic train days",
+      "displayed": "1308",
+      "independent": "1308",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Labelled records (intl + domestic)",
+      "displayed": "59930",
+      "independent": "59930",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Guests observed from",
+      "displayed": "2022-01-01",
+      "independent": "2022-01-01",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Guests observed to",
+      "displayed": "2025-07-31",
+      "independent": "2025-07-31",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Unlabelled test rows (intl + domestic)",
+      "displayed": "9414",
+      "independent": "9414",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Test period start",
+      "displayed": "2025-08-01",
+      "independent": "2025-08-01",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Test period end",
+      "displayed": "2026-02-28",
+      "independent": "2026-02-28",
+      "status": "PASS"
+    },
+    {
+      "page": "1+2",
+      "check": "Test files contain a Guests column",
+      "displayed": "False",
+      "independent": "False",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Average international Guests per day (shown 0 dp)",
+      "displayed": "19441",
+      "independent": "19441",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Average domestic Guests per day (shown 0 dp)",
+      "displayed": "17737",
+      "independent": "17737",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "intl_train: rows",
+      "displayed": "58,622",
+      "independent": "58,622",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "intl_train: columns in text",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "intl_train: distinct days in text",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "intl_test: rows",
+      "displayed": "9,202",
+      "independent": "9,202",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "intl_test: columns in text",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "intl_test: distinct days in text",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "dom_train: rows",
+      "displayed": "1,308",
+      "independent": "1,308",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "dom_train: columns in text",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "dom_train: distinct days in text",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "dom_test: rows",
+      "displayed": "212",
+      "independent": "212",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "dom_test: columns in text",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "dom_test: distinct days in text",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Duplicate keys across the five files",
+      "displayed": "0",
+      "independent": "0",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Literal '*' cells across the five files",
+      "displayed": "0",
+      "independent": "0",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Missing nationality-day combinations",
+      "displayed": "238",
+      "independent": "238",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Nationalities with missing days",
+      "displayed": "8",
+      "independent": "8",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Same-Day Guests suppressed, intl train (shown 1 dp)",
+      "displayed": "59.7",
+      "independent": "59.7",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Same-Day Guests suppressed, intl test (shown 1 dp)",
+      "displayed": "47.8",
+      "independent": "47.8",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Train rows with New Arrivals < 10",
+      "displayed": "5202",
+      "independent": "5202",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Test rows with New Arrivals < 10",
+      "displayed": "0",
+      "independent": "0",
+      "status": "PASS"
+    },
+    {
+      "page": "1+2",
+      "check": "Nationalities matching a departure country",
+      "displayed": "33",
+      "independent": "33",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Guest-days in matched nationalities (shown 1 dp)",
+      "displayed": "92.2",
+      "independent": "92.2",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Rows checked for duplicate keys (all five files)",
+      "displayed": "186952",
+      "independent": "186952",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Duplicate keys (quality card)",
+      "displayed": "0",
+      "independent": "0",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Training rows with Guests: international",
+      "displayed": "58622",
+      "independent": "58622",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Training rows with Guests: domestic",
+      "displayed": "1308",
+      "independent": "1308",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Nationalities with a matching departure country",
+      "displayed": "33",
+      "independent": "33",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 International guest-days in matched nationalities",
+      "displayed": "0.9218",
+      "independent": "0.9218",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Arrivals from the United Kingdom that are transfer passengers",
+      "displayed": "0.7219",
+      "independent": "0.7219",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Russian nationals: share of guest-days vs. share of arriving passengers",
+      "displayed": "[0.1007, 0.024]",
+      "independent": "[0.1007, 0.024]",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Monthly-grain rows (2022)",
+      "displayed": "1213",
+      "independent": "1213",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Daily-grain rows",
+      "displayed": "116395",
+      "independent": "116395",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Average Weekly Frequency empty: monthly vs daily rows",
+      "displayed": "[1213, 0]",
+      "independent": "[1213, 0]",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Training rows with New Arrivals below 10",
+      "displayed": "5202",
+      "independent": "5202",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Test rows with New Arrivals below 10",
+      "displayed": "0",
+      "independent": "0",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Share of training guest-days in those rows",
+      "displayed": "0.0087",
+      "independent": "0.0087",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Nationality rows per day: training vs test",
+      "displayed": "[44.8, 43.4]",
+      "independent": "[44.8, 43.4]",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Unobserved nationality-day combinations",
+      "displayed": "238",
+      "independent": "238",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Most affected",
+      "displayed": "{'FINLAND': 54, 'NORWAY': 44, 'AZERBAIJAN': 42, 'DENMARK': 42, 'CZECHIA': 27, 'ARMENIA': 24, 'ISRAEL': 4, 'QATAR': 1}",
+      "independent": "{'FINLAND': 54, 'NORWAY': 44, 'AZERBAIJAN': 42, 'DENMARK': 42, 'CZECHIA': 27, 'ARMENIA': 24, 'ISRAEL': 4, 'QATAR': 1}",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Smallest recorded international Guests value",
+      "displayed": "10",
+      "independent": "10",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Blank Same-Day Guests, international training",
+      "displayed": "35026",
+      "independent": "35026",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Blank Same-Day Guests, international test",
+      "displayed": "4402",
+      "independent": "4402",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Literal \u201c*\u201d cells across the five files",
+      "displayed": "0",
+      "independent": "0",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Daily rows above 100%",
+      "displayed": "9883",
+      "independent": "9883",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Of these, still above 100% without infants",
+      "displayed": "2245",
+      "independent": "2245",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 2022 monthly rows above 100%",
+      "displayed": "13",
+      "independent": "13",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Largest gap between Load Factor and PAX \u00f7 Seats",
+      "displayed": "0.0",
+      "independent": "0.0",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Unlabelled test rows (international + domestic)",
+      "displayed": "9414",
+      "independent": "9414",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Guests column present in a test file",
+      "displayed": "False",
+      "independent": "False",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Daily rows with Total Transit > 0",
+      "displayed": "3",
+      "independent": "3",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Transit passengers vs all arriving passengers",
+      "displayed": "164.0",
+      "independent": "164.0",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Daily rows with cabin transit counts > 0",
+      "displayed": "4207",
+      "independent": "4207",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Rows where cabin transfer + transit \u2264 Total Transfer",
+      "displayed": "1.0",
+      "independent": "1.0",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Daily rows where cabin P2P = Total P2P",
+      "displayed": "33020",
+      "independent": "33020",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Finding evidence \u2014 Rows where cabin P2P + infants = Total P2P",
+      "displayed": "0.8667",
+      "independent": "0.8667",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Smallest recorded international Guests value",
+      "displayed": "10",
+      "independent": "10",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Empty New Arrivals cells, international training",
+      "displayed": "262",
+      "independent": "262",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Daily rows with Total Transit = 0 (genuine zeros)",
+      "displayed": "116392",
+      "independent": "116392",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Empty Guests in training files",
+      "displayed": "0",
+      "independent": "0",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Empty passenger/seat totals on daily rows",
+      "displayed": "0",
+      "independent": "0",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "International test columns (no Guests)",
+      "displayed": "Date, New Arrivals, Same-Day Guests, Nationality, Residence (groups)",
+      "independent": "Date, New Arrivals, Same-Day Guests, Nationality, Residence (groups)",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Domestic test columns (no Guests)",
+      "displayed": "Date, New Arrivals, Same-Day Guests, Residence (groups)",
+      "independent": "Date, New Arrivals, Same-Day Guests, Residence (groups)",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Domestic training Guests minimum",
+      "displayed": "8827",
+      "independent": "8827",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Domestic training Guests maximum",
+      "displayed": "36385",
+      "independent": "36385",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Distinct column names across the five workbooks",
+      "displayed": "31",
+      "independent": "31",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Largest load factor (2022 monthly rows)",
+      "displayed": "1.857143",
+      "independent": "1.857143",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "International test days",
+      "displayed": "212",
+      "independent": "212",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Dates stored as Excel date values (not strings)",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Dictionary wording present in PDF \u2014 Target in the test files",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Dictionary wording present in PDF \u2014 Flight-data grain",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Dictionary wording present in PDF \u2014 Average Weekly Frequency",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Dictionary wording present in PDF \u2014 Suppression marker",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Dictionary wording present in PDF \u2014 Load Factor format",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Dictionary wording present in PDF \u2014 Date format",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Dictionary wording present in PDF \u2014 International test coverage",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Dictionary wording present in PDF \u2014 Domestic Guests range",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Dictionary wording present in PDF \u2014 Cabin-class columns",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "2",
+      "check": "Dictionary wording present in PDF \u2014 Number of columns",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Correlation: intl Guests vs trailing-7-day P2P (shown 2 dp)",
+      "displayed": "0.78",
+      "independent": "0.78",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Dictionary: Guests = guests recorded for nationality on date (intl)",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Dictionary: New Arrivals are a subset of Guests (continuing stays excluded)",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Dictionary: domestic Guests is a daily total",
+      "displayed": "True",
+      "independent": "True",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Active model ID resolved",
+      "displayed": "MKT-WI-svr-20261010-123918-b5964e",
+      "independent": "MKT-WI-svr-20261010-123918-b5964e",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Model metadata ID = folder ID",
+      "displayed": "MKT-WI-svr-20261010-123918-b5964e",
+      "independent": "MKT-WI-svr-20261010-123918-b5964e",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Holdout R\u00b2 (shown 3 dp)",
+      "displayed": "0.84",
+      "independent": "0.84",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Holdout MAE (shown 0 dp)",
+      "displayed": "183",
+      "independent": "183",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Holdout WMAPE (shown 1 dp)",
+      "displayed": "25.9",
+      "independent": "25.9",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Holdout RMSE (metadata vs recomputed)",
+      "displayed": "365.096591",
+      "independent": "365.096591",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Holdout predictions count",
+      "displayed": "5973",
+      "independent": "5973",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Holdout start",
+      "displayed": "2025-02-01",
+      "independent": "2025-02-01",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Holdout end",
+      "displayed": "2025-07-31",
+      "independent": "2025-07-31",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Training (evaluation fit) ends the day before the holdout",
+      "displayed": "2025-01-31",
+      "independent": "2025-01-31",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Training starts at the modelling start",
+      "displayed": "2023-03-01",
+      "independent": "2023-03-01",
+      "status": "PASS"
+    },
+    {
+      "page": "1",
+      "check": "Every saved y_true equals the raw Guests value",
+      "displayed": "5973/5973",
+      "independent": "5973/5973",
+      "status": "PASS"
+    }
+  ]
+}
